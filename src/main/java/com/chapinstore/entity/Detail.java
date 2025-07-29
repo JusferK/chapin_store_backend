@@ -11,7 +11,7 @@ public class Detail implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderDetailId;
+    private Integer orderDetailId;
 
     @Column(nullable = false)
     private Double subtotal;
