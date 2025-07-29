@@ -1,0 +1,34 @@
+server:
+  servlet:
+    context-path: /business/v1
+  port: 8085
+
+spring:
+  application:
+    name: chapin_store
+  datasource:
+    url: jdbc:h2:mem:chapin_store
+    driverClassName: org.h2.Driver
+    dialect: org.hibernate.dialect.H2Dialect
+    hikari:
+      username: admin
+      password: admin
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+
+
+swagger:
+  enabled: true
+  api-docs:
+    path: /v2/api-docs
+  ui:
+    path: /swagger-ui.html
+
+application:
+  user:
+    page-size: 15
+

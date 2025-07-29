@@ -1,0 +1,25 @@
+package com.chapinstore.enums;
+
+public enum Department {
+    ALTA_VERAPAZ,
+    BAJA_VERAPAZ,
+    CHIMALTENANGO,
+    EL_PROGRESO,
+    ESCUINTLA,
+    GUATEMALA,
+    HUEHUETENANGO,
+    IZABAL,
+    JALAPA,
+    JUTIAPA,
+    PETEN,
+    QUETZALTENANGO,
+    QUICHE,
+    RETALHULEU,
+    SACATEPEQUEZ,
+    SAN_MARCOS,
+    SANTA_ROSA,
+    SOLOLA,
+    SUCHITEPEQUEZ,
+    TOTONICAPAN,
+    ZACAPA
+}
