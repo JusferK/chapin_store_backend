@@ -1,7 +1,8 @@
 package com.chapinstore.entity;
 
+import com.chapinstore.enums.Role;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +24,7 @@ public class Customer implements Serializable {
     @Column(length = 45, unique = true, nullable = false)
     private String email;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable = false, length = 45)
     private String password;
 
@@ -38,6 +40,9 @@ public class Customer implements Serializable {
     @Lob
     private String profilePhoto;
 
+    @Column(nullable = false)
+    private Role role;
+
     @OneToMany(
             mappedBy = "customerEmail",
             cascade = CascadeType.ALL,
@@ -45,7 +50,6 @@ public class Customer implements Serializable {
     )
     private List<Payment> paymentMethods = new ArrayList<>();
 
-    @Size(min = 1, max = 1)
     @OneToMany(
             mappedBy = "customerEmail",
             cascade = CascadeType.ALL,

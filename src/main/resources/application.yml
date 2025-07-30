@@ -20,7 +20,6 @@ spring:
         format_sql: true
         dialect: org.hibernate.dialect.H2Dialect
 
-
 swagger:
   enabled: true
   api-docs:
@@ -30,5 +29,6 @@ swagger:
 
 application:
   user:
+    property: email
     page-size: 15
 
