@@ -28,6 +28,15 @@ swagger:
     path: /swagger-ui.html
 
 application:
+  order-request:
+    property: status
+    page-size: 20
+  product:
+    property: price
+    page-size: 20
+  category:
+    property: name
+    page-size: 20
   user:
     property: email
     page-size: 15

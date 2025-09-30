@@ -1,4 +1,4 @@
-package com.chapinstore.dto.customer_address.creation;
+package com.chapinstore.dto.customer_address.request;
 
 import lombok.Data;
 

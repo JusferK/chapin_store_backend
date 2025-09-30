@@ -1,6 +1,6 @@
 package com.chapinstore.controller;
 
-import com.chapinstore.dto.customer_address.creation.CustomerAddressCreationWrapperDto;
+import com.chapinstore.dto.customer_address.request.CustomerAddressCreationWrapperDto;
 import com.chapinstore.dto.customer_address.response.CustomerAddressCreationResponseDto;
 import com.chapinstore.service.CustomerAddressService;
 import jakarta.validation.Valid;
@@ -19,9 +19,7 @@ public class CustomerAddressController {
     private CustomerAddressService customerAddressService;
 
     @PostMapping("/add-address")
-    public ResponseEntity<CustomerAddressCreationResponseDto> addAddress(
-            @Valid @RequestBody CustomerAddressCreationWrapperDto customerAddressCreationWrapperDto
-    ) throws IllegalAccessException {
+    public ResponseEntity<CustomerAddressCreationResponseDto> addAddress(@Valid @RequestBody CustomerAddressCreationWrapperDto customerAddressCreationWrapperDto) throws IllegalAccessException {
         return ResponseEntity
                 .ok()
                 .body(customerAddressService.createAddress(customerAddressCreationWrapperDto.getAddress(), customerAddressCreationWrapperDto.getEmail()));

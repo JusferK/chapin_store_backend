@@ -1,6 +1,6 @@
 package com.chapinstore.dto.customer.creation;
 
-import com.chapinstore.dto.customer_address.creation.CustomerAddressCreationDto;
+import com.chapinstore.dto.customer_address.request.CustomerAddressCreationDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.Data;

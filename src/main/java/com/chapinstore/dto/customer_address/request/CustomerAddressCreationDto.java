@@ -1,4 +1,4 @@
-package com.chapinstore.dto.customer_address.creation;
+package com.chapinstore.dto.customer_address.request;
 
 import com.chapinstore.enums.Department;
 import jakarta.validation.constraints.NotBlank;
