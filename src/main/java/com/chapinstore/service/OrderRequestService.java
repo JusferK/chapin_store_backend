@@ -97,7 +97,7 @@ public class OrderRequestService {
         return Map.of("status", status.toString());
     }
 
-    private Map<String, Boolean> delete(Integer orderRequestId) {
+    public Map<String, Boolean> delete(Integer orderRequestId) {
 
         OrderRequest findOrder = orderRequestRepository.findById(orderRequestId)
                 .orElseThrow(() -> new EntityNotFoundException("No se encontro ninguna orden"));

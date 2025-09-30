@@ -95,6 +95,11 @@ public class CustomerService {
         return Map.of("removed", true);
     }
 
+    public Customer find(String email) {
+        return customerRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("Cliente no fue encontrado."));
+    }
+
     public Boolean isAllowedToAdd(String email) {
         Customer findCustomer = customerRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente no fue encontrado."));

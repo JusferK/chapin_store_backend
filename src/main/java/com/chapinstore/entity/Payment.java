@@ -1,5 +1,6 @@
 package com.chapinstore.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,12 +29,15 @@ public class Payment implements Serializable {
     private String lastFourDigits;
 
     @Column(nullable = false, length = 3)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String cvv;
 
-    @Column(length = 16, nullable = false)
+    @Column(length = 16, nullable = false, unique = true)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String cardNumber;
 
     @Column(nullable = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Date expirationDate;
 
     @Column(length = 45, nullable = false)
