@@ -1,8 +1,12 @@
 package com.chapinstore.dto.order_request.request;
 
+import com.chapinstore.dto.detail.request.DetailCreationRequestDto;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class OrderRequestCreationDto {
@@ -19,5 +23,9 @@ public class OrderRequestCreationDto {
 
     @NotNull(message = "El id del pago es requerido.")
     private Integer paymentId;
+
+    @Valid
+    @Size(min = 1, message = "Se requiere comprar al menos 1 producto.")
+    private List<DetailCreationRequestDto> orderDetail;
 
 }

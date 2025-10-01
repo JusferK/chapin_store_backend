@@ -82,6 +82,11 @@ public class CategoryService {
         return Map.of("deleted", true);
     }
 
+    public void findById(Integer id) {
+        categoryRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("La categoria no encontrada."));
+    }
+
     private void updateAndSave(Category category, CategoryEditDto categoryDto) {
         if (categoryDto.getName() != null) category.setName(categoryDto.getName());
         if (categoryDto.getDescription() != null) category.setDescription(categoryDto.getDescription());

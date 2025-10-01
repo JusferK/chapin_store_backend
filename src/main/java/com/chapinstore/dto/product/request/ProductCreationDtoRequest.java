@@ -25,6 +25,6 @@ public class ProductCreationDtoRequest {
     private Integer stock;
 
     @NotNull(message = "La categoria es requerida.")
-    private String categoryId;
+    private Integer categoryId;
 
 }

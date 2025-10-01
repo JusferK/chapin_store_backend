@@ -7,6 +7,7 @@ import com.chapinstore.entity.CustomerAddress;
 import com.chapinstore.enums.Country;
 import com.chapinstore.repository.CustomerAddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class CustomerAddressService {
     private CustomerAddressRepository customerAddressRepository;
 
     @Autowired
+    @Lazy
     private CustomerService customerService;
 
     @Autowired

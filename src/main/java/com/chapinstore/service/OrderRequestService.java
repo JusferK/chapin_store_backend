@@ -34,6 +34,9 @@ public class OrderRequestService {
     private int pageSize;
 
     @Autowired
+    private DetailService detailService;
+
+    @Autowired
     private OrderRequestRepository orderRequestRepository;
 
     @Autowired
@@ -71,9 +74,20 @@ public class OrderRequestService {
         return mapList(orderRequest);
     }
 
+    public OrderRequest findById(Integer id) {
+        return orderRequestRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No se encontro la orden"));
+    }
+
     public OrderRequestCreationResponseDto create(OrderRequestCreationDto orderRequestCreationDto) {
         OrderRequest orderRequest = orderRequestMapper.toOrderRequest(orderRequestCreationDto);
-        orderRequestRepository.save(orderRequest);
+        orderRequest = orderRequestRepository.save(orderRequest);
+
+        detailService.create(
+                orderRequestCreationDto.getOrderDetail(),
+                orderRequest.getOrderRequestId()
+        );
+
         return orderRequestMapper.toOrderRequestCreationResponseDto(orderRequest);
     }
 

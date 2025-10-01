@@ -10,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -27,7 +28,7 @@ public class OrderRequest implements Serializable {
     private String shippingAddress;
 
     @Column(nullable = false)
-    private Integer totalAmount;
+    private Double totalAmount;
 
     @Column(nullable = false)
     private String customerEmail;
@@ -45,5 +46,13 @@ public class OrderRequest implements Serializable {
     @Column(nullable = false)
     @CreationTimestamp
     private Date orderDate;
+
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            mappedBy = "orderRequestId",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Detail> orderDetail;
 
 }

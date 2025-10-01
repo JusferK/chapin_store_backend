@@ -5,6 +5,7 @@ import com.chapinstore.dto.product.request.ProductCreationDtoRequest;
 import com.chapinstore.dto.product.request.ProductUpdateDto;
 import com.chapinstore.dto.product.response.ProductCreationDtoResponse;
 import com.chapinstore.dto.product.response.ProductRetrieveDtoResponse;
+import com.chapinstore.entity.Category;
 import com.chapinstore.entity.Product;
 import com.chapinstore.model.Pagination;
 import com.chapinstore.repository.ProductRepository;
@@ -36,6 +37,9 @@ public class ProductService {
     @Autowired
     private ProductMapper productMapper;
 
+    @Autowired
+    private CategoryService categoryService;
+
     public Pagination<ProductRetrieveDtoResponse> all(Integer page) {
 
         Pageable pageable = PageRequest.of(page, pageSize, Sort.Direction.ASC, property);
@@ -63,7 +67,14 @@ public class ProductService {
         return productMapper.toProductRetrieveDtoResponse(findProduct);
     }
 
+    public Product findById(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No se encontro ningun producto con este id"));
+    }
+
     public ProductCreationDtoResponse create(ProductCreationDtoRequest productCreationDtoRequest) {
+
+        categoryService.findById(productCreationDtoRequest.getCategoryId());
 
         Optional<Product> findByName = productRepository.findByName(productCreationDtoRequest.getName());
         if (findByName.isPresent()) throw new IllegalArgumentException("Producto con este nombre ya existe");
@@ -91,7 +102,6 @@ public class ProductService {
         productRepository.delete(product);
         return Map.of("deleted", Boolean.TRUE);
     }
-
 
     private Product findProduct(String id) {
         Product findById = findById(id);
@@ -138,7 +148,5 @@ public class ProductService {
 
         productRepository.save(product);
     }
-
-
 
 }
