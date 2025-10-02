@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class CategoryRetrieveAllDto {
 
-    private Integer id;
+    private Integer categoryId;
     private String name;
     private String description;
 

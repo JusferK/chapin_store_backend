@@ -4,11 +4,11 @@ import com.chapinstore.common.mapper.CustomerMapper;
 import com.chapinstore.dto.customer.creation.CustomerCreationDto;
 import com.chapinstore.dto.customer.creation.CustomerEditDto;
 import com.chapinstore.dto.customer.response.CustomerCreationResponseDto;
-import com.chapinstore.dto.customer.response.CustomerListResponseDto;
+import com.chapinstore.dto.customer.response.CustomerResponseDto;
 import com.chapinstore.entity.Customer;
-import com.chapinstore.enums.Role;
 import com.chapinstore.model.Pagination;
 import com.chapinstore.repository.CustomerRepository;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,32 +41,35 @@ public class CustomerService {
 
     public CustomerCreationResponseDto registerCustomer(CustomerCreationDto customerCreationDto) {
 
+        customerRepository.findByEmail(customerCreationDto.getEmail())
+                .ifPresent(entity -> {
+                    throw new EntityExistsException("Este correo ya esta registrado.");
+                });
+
         Customer customer = customerMapper.toCustomer(customerCreationDto);
         validatePassword(customer);
 
-        customer.setRole(Role.CUSTOMER);
         Customer savedCustomer = customerRepository.save(customer);
         if (!customerCreationDto.getAddresses().isEmpty())
-            savedCustomer.setAddresses(
-                    customerAddressService.saveAddress(customerCreationDto.getAddresses(), savedCustomer.getEmail())
-            );
+            customerAddressService.saveAddress(customerCreationDto.getAddresses(), savedCustomer.getEmail());
 
 
-        return customerMapper
-                .toCustomerCreationResponseDto(savedCustomer);
+        CustomerCreationResponseDto response = customerMapper.toCustomerCreationResponseDto(savedCustomer);
+        response.setAddresses(customerCreationDto.getAddresses());
+        return response;
     }
 
-    public Pagination<CustomerListResponseDto> getAllCustomers(Integer page) {
+    public Pagination<CustomerResponseDto> getAllCustomers(Integer page) {
 
         Pageable pageable = PageRequest.of(page, pageSize, Sort.Direction.ASC, property);
         Page<Customer> customerPage = customerRepository.findAll(pageable);
 
-        List<CustomerListResponseDto> content = customerPage.getContent()
+        List<CustomerResponseDto> content = customerPage.getContent()
                 .stream()
-                .map(customer -> customerMapper.toCustomerListResponseDto(customer))
+                .map(customer -> customerMapper.toCustomerResponseDto(customer))
                 .toList();
 
-        return Pagination.<CustomerListResponseDto>
+        return Pagination.<CustomerResponseDto>
                 builder()
                 .content(content)
                 .page(page)
@@ -75,6 +78,15 @@ public class CustomerService {
                 .totalPages(customerPage.getTotalPages())
                 .build();
 
+    }
+
+    public CustomerResponseDto getCustomer(String email) {
+        Customer find = customerRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("El usuario no fue encontrado."));
+
+
+        return customerMapper
+                .toCustomerResponseDto(find);
     }
 
     public CustomerEditDto patchCustomer(CustomerEditDto customerEditDto) {
@@ -98,14 +110,6 @@ public class CustomerService {
     public Customer find(String email) {
         return customerRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente no fue encontrado."));
-    }
-
-    public Boolean isAllowedToAdd(String email) {
-        Customer findCustomer = customerRepository.findByEmail(email)
-                .orElseThrow(() -> new EntityNotFoundException("Cliente no fue encontrado."));
-
-        return findCustomer.getAddresses().isEmpty();
-
     }
 
     private void patchCustomer(Customer customer, CustomerEditDto customerEditDto) {

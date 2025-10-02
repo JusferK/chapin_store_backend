@@ -31,10 +31,11 @@ public class Product implements Serializable {
     @Column(nullable = false)
     private Integer stock;
 
+    @Lob
     @Column(nullable = false)
     private String image;
 
     @Column(nullable = false)
-    private String categoryId;
+    private Integer categoryId;
 
 }

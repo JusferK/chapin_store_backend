@@ -1,6 +1,6 @@
 package com.chapinstore.controller;
 
-import com.chapinstore.dto.order_request.response.PaymentRetrieveDto;
+import com.chapinstore.dto.payment.response.PaymentRetrieveDto;
 import com.chapinstore.dto.payment.request.PaymentCreationRequestDto;
 import com.chapinstore.dto.payment.response.PaymentCreationResponseDto;
 import com.chapinstore.service.PaymentService;
@@ -19,7 +19,7 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
-    @PostMapping("/create")
+    @PostMapping("/new")
     public ResponseEntity<PaymentCreationResponseDto> create(
             @Valid @RequestBody PaymentCreationRequestDto paymentCreationRequestDto
     ) {

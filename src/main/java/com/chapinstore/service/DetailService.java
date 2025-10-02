@@ -3,6 +3,7 @@ package com.chapinstore.service;
 import com.chapinstore.common.mapper.DetailMapper;
 import com.chapinstore.dto.detail.request.DetailCreationRequestDto;
 import com.chapinstore.dto.detail.request.DetailUpdateRequestDto;
+import com.chapinstore.dto.detail.response.DetailRetrieveDto;
 import com.chapinstore.entity.Detail;
 import com.chapinstore.entity.OrderRequest;
 import com.chapinstore.entity.Product;
@@ -39,6 +40,7 @@ public class DetailService {
         List<Detail> details = detailCreationRequestDto
                 .stream()
                 .map(detail -> detailMapper.toDetail(detail))
+                .peek(detail -> productService.findById(detail.getProductId()))
                 .peek(detail -> detail.setOrderRequestId(orderId))
                 .toList();
 
@@ -58,6 +60,10 @@ public class DetailService {
                 .orElseThrow(() -> new EntityNotFoundException("No se encontro el detalle"));
 
         return updateDetail(detail, detailDto, orderRequest);
+    }
+
+    public DetailRetrieveDto map(Detail detail) {
+        return detailMapper.toDetailRetrieveDto(detail);
     }
 
     private Map<String, Boolean> updateDetail(

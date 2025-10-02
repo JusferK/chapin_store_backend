@@ -15,21 +15,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/categories")
+@RequestMapping("/category")
 public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("/get-all-categories")
+    @GetMapping("/get-all")
     public ResponseEntity<Pagination<CategoryRetrieveAllDto>> getAllCategories(
             @RequestParam(required = false, defaultValue = "0") Integer page
     ) {
         return ResponseEntity
-                .ok(categoryService.all(page));
+                .status(HttpStatus.OK)
+                .body(categoryService.all(page));
     }
 
-    @PostMapping("/new-category")
+    @PostMapping("/new")
     public ResponseEntity<CategoryCreationResponseDto> save(
             @Valid @RequestBody CategoryCreationDtoRequest request
     ) {
@@ -38,18 +39,22 @@ public class CategoryController {
                 .body(categoryService.save(request));
     }
 
-    @PatchMapping("/patch-category")
+    @PatchMapping("/patch")
     public ResponseEntity<CategoryEditDto> patchCategory(
             @Valid @RequestBody CategoryEditDto request
     ) {
-        return ResponseEntity.ok(categoryService.edit(request));
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(categoryService.edit(request));
     }
 
-    @DeleteMapping("/delete-category")
+    @DeleteMapping("/delete")
     public ResponseEntity<Map<String, Boolean>> delete(
             @RequestParam(required = false, defaultValue = "0") Integer id
     ) {
-        return ResponseEntity.ok(categoryService.delete(id));
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(categoryService.delete(id));
     }
 
 }

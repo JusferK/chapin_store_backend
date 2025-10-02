@@ -28,7 +28,8 @@ public class OrderRequestController {
         @RequestParam(defaultValue = "0", required = false) Integer page
     ) {
         return ResponseEntity
-                .ok(orderRequestService.getAll(page));
+                .status(HttpStatus.OK)
+                .body(orderRequestService.getAll(page));
     }
 
     @GetMapping("/get")
@@ -36,7 +37,8 @@ public class OrderRequestController {
             @RequestParam String argument
     ) {
         return ResponseEntity
-                .ok(orderRequestService.find(argument));
+                .status(HttpStatus.OK)
+                .body(orderRequestService.find(argument));
     }
 
     @PostMapping("/new")
@@ -53,7 +55,8 @@ public class OrderRequestController {
             @Valid @RequestBody OrderRequestUpdateDto orderRequestUpdateDto
     ) {
         return ResponseEntity
-                .ok(orderRequestService.update(orderRequestUpdateDto));
+                .status(HttpStatus.OK)
+                .body(orderRequestService.update(orderRequestUpdateDto));
     }
 
     @PatchMapping("/update/status")
@@ -62,7 +65,8 @@ public class OrderRequestController {
             @RequestParam Integer orderRequestId
     ) {
         return ResponseEntity
-                .ok(orderRequestService.updateStatus(status, orderRequestId));
+                .status(HttpStatus.OK)
+                .body(orderRequestService.updateStatus(status, orderRequestId));
     }
 
     @DeleteMapping("/delete")
@@ -70,7 +74,8 @@ public class OrderRequestController {
             @RequestParam Integer orderRequestId
     ) {
         return ResponseEntity
-                .ok(orderRequestService.delete(orderRequestId));
+                .status(HttpStatus.OK)
+                .body(orderRequestService.delete(orderRequestId));
     }
 
 }

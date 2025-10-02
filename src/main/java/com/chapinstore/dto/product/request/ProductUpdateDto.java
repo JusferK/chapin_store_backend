@@ -24,6 +24,6 @@ public class ProductUpdateDto {
 
     private String image;
 
-    private String categoryId;
+    private Integer categoryId;
 
 }

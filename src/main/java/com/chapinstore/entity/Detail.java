@@ -11,7 +11,7 @@ public class Detail implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer detailId;
+    private Long detailId;
 
     @Column(nullable = false)
     private Double subtotal;

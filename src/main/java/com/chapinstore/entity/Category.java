@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Data
@@ -18,13 +16,7 @@ public class Category implements Serializable {
     @Column(nullable = false, unique = true)
     private String name;
 
+    @Column(nullable = false, length = 300)
     private String description;
-
-    @OneToMany(
-            mappedBy = "categoryId",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<Product> products = new ArrayList<>();
 
 }

@@ -20,21 +20,35 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/get-all")
-    private ResponseEntity<Pagination<ProductRetrieveDtoResponse>> all(
+    public ResponseEntity<Pagination<ProductRetrieveDtoResponse>> all(
             @RequestParam(required = false, defaultValue = "0") Integer page
     ) {
-        return ResponseEntity.ok(productService.all(page));
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(productService.all(page));
+    }
+
+    @GetMapping("/get-all-by-category")
+    public ResponseEntity<Pagination<ProductRetrieveDtoResponse>> allByCategory(
+            @RequestParam(required = false, defaultValue = "0") Integer page,
+            @RequestParam Integer categoryId
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(productService.allByCategory(page, categoryId));
     }
 
     @GetMapping("/get")
-    private ResponseEntity<ProductRetrieveDtoResponse> find(
+    public ResponseEntity<ProductRetrieveDtoResponse> find(
             @RequestParam String argument
     ) {
-        return ResponseEntity.ok(productService.find(argument));
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(productService.find(argument));
     }
 
     @PostMapping("/new")
-    private ResponseEntity<ProductCreationDtoResponse> create(
+    public ResponseEntity<ProductCreationDtoResponse> create(
             @Valid @RequestBody ProductCreationDtoRequest productCreationDtoRequest
     ) {
         return ResponseEntity
@@ -43,16 +57,19 @@ public class ProductController {
     }
 
     @PatchMapping("/patch")
-    private ResponseEntity<ProductUpdateDto> update(
+    public ResponseEntity<ProductUpdateDto> update(
             @Valid @RequestBody ProductUpdateDto productUpdateDtoRequest
     ) {
-        return ResponseEntity.ok(productService.update(productUpdateDtoRequest));
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(productService.update(productUpdateDtoRequest));
     }
 
     @DeleteMapping("/delete")
-    private ResponseEntity<?> delete(@RequestParam Long id) {
+    public ResponseEntity<?> delete(@RequestParam Long id) {
         return ResponseEntity
-                .ok(productService.delete(id));
+                .status(HttpStatus.OK)
+                .body(productService.delete(id));
     }
 
 

@@ -13,6 +13,6 @@ public class DetailCreationRequestDto {
     private Integer quantity;
 
     @NotNull(message = "El id del producto es requerido.")
-    private Integer productId;
+    private Long productId;
 
 }

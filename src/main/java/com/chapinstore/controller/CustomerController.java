@@ -3,7 +3,7 @@ package com.chapinstore.controller;
 import com.chapinstore.dto.customer.creation.CustomerCreationDto;
 import com.chapinstore.dto.customer.creation.CustomerEditDto;
 import com.chapinstore.dto.customer.response.CustomerCreationResponseDto;
-import com.chapinstore.dto.customer.response.CustomerListResponseDto;
+import com.chapinstore.dto.customer.response.CustomerResponseDto;
 import com.chapinstore.model.Pagination;
 import com.chapinstore.service.CustomerService;
 import jakarta.validation.Valid;
@@ -21,31 +21,40 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping("/get-all-customer")
-    public ResponseEntity<Pagination<CustomerListResponseDto>> allCustomers(@RequestParam(required = false, defaultValue = "0") Integer page) {
+    @GetMapping("/get-all")
+    public ResponseEntity<Pagination<CustomerResponseDto>> allCustomers(@RequestParam(required = false, defaultValue = "0") Integer page) {
         return ResponseEntity
-                .ok()
+                .status(HttpStatus.OK)
                 .body(customerService.getAllCustomers(page));
     }
 
-    @PostMapping("/register-customer")
+    @GetMapping("/get")
+    public ResponseEntity<CustomerResponseDto> getCustomer(@RequestParam String email) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(customerService.getCustomer(email));
+    }
+
+    @PostMapping("/register")
     public ResponseEntity<CustomerCreationResponseDto> registerCustomer(@Valid @RequestBody CustomerCreationDto customerCreationDto) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(customerService.registerCustomer(customerCreationDto));
     }
 
-    @PatchMapping("/edit-customer")
-    public ResponseEntity<CustomerEditDto> editCustomer(@Valid @RequestBody CustomerEditDto customerEditDto) {
+    @PatchMapping("/patch")
+    public ResponseEntity<CustomerEditDto> editCustomer(
+            @Valid @RequestBody CustomerEditDto customerEditDto
+    ) {
         return ResponseEntity
-                .ok()
+                .status(HttpStatus.OK)
                 .body(customerService.patchCustomer(customerEditDto));
     }
 
-    @DeleteMapping("/disable-customer/{email}")
+    @DeleteMapping("/disable/{email}")
     public ResponseEntity<Map<String, Boolean>> disableCustomer(@PathVariable("email") String email) {
         return ResponseEntity
-                .ok()
+                .status(HttpStatus.OK)
                 .body(customerService.disableAccount(email));
     }
 

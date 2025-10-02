@@ -8,6 +8,7 @@ import com.chapinstore.dto.category.response.CategoryRetrieveAllDto;
 import com.chapinstore.entity.Category;
 import com.chapinstore.model.Pagination;
 import com.chapinstore.repository.CategoryRepository;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -58,6 +59,12 @@ public class CategoryService {
     }
 
     public CategoryCreationResponseDto save(CategoryCreationDtoRequest request) {
+
+        categoryRepository.findByName(request.getName())
+                .ifPresent(category -> {
+                    throw new EntityExistsException("Esta categoria ya existe.");
+                });
+
         Category newCategory = categoryMapper.toCategoryCreationDtoRequest(request);
         newCategory = categoryRepository.save(newCategory);
         return categoryMapper.toCategoryCreationResponseDto(newCategory);

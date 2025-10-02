@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -53,6 +54,6 @@ public class OrderRequest implements Serializable {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<Detail> orderDetail;
+    private List<Detail> orderDetail = new ArrayList<>();
 
 }

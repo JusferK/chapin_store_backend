@@ -1,5 +1,6 @@
 package com.chapinstore.dto.customer.response;
 
+import com.chapinstore.dto.customer_address.request.CustomerAddressCreationDto;
 import com.chapinstore.dto.customer_address.response.CustomerAddressCreationResponseDto;
 import lombok.Data;
 
@@ -13,6 +14,6 @@ public class CustomerCreationResponseDto {
     private String name;
     private String lastName;
     private Date dateOfBirth;
-    private List<CustomerAddressCreationResponseDto> addresses;
+    private List<CustomerAddressCreationDto> addresses;
 
 }

@@ -1,6 +1,5 @@
 package com.chapinstore.entity;
 
-import com.chapinstore.enums.Role;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,9 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @Entity
@@ -39,29 +36,5 @@ public class Customer implements Serializable {
 
     @Lob
     private String profilePhoto;
-
-    @Column(nullable = false)
-    private Role role;
-
-    @OneToMany(
-            mappedBy = "customerEmail",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<Payment> paymentMethods = new ArrayList<>();
-
-    @OneToMany(
-            mappedBy = "customerEmail",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<CustomerAddress> addresses = new ArrayList<>();
-
-    @OneToMany(
-            mappedBy = "customerEmail",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<OrderRequest> orders = new ArrayList<>();
 
 }

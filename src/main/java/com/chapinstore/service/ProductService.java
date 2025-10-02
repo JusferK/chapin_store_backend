@@ -5,10 +5,11 @@ import com.chapinstore.dto.product.request.ProductCreationDtoRequest;
 import com.chapinstore.dto.product.request.ProductUpdateDto;
 import com.chapinstore.dto.product.response.ProductCreationDtoResponse;
 import com.chapinstore.dto.product.response.ProductRetrieveDtoResponse;
-import com.chapinstore.entity.Category;
+import com.chapinstore.dto.product.response.ProductRetrieveDtoResponseV2;
 import com.chapinstore.entity.Product;
 import com.chapinstore.model.Pagination;
 import com.chapinstore.repository.ProductRepository;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,11 +46,7 @@ public class ProductService {
         Pageable pageable = PageRequest.of(page, pageSize, Sort.Direction.ASC, property);
         Page<Product> productPage = productRepository.findAll(pageable);
 
-        List<ProductRetrieveDtoResponse> content = productPage
-                .getContent()
-                .stream()
-                .map(product -> productMapper.toProductRetrieveDtoResponse(product))
-                .toList();
+        List<ProductRetrieveDtoResponse> content = mapProduct(productPage.getContent());
 
         return Pagination.<ProductRetrieveDtoResponse>
                 builder()
@@ -60,6 +57,25 @@ public class ProductService {
                 .totalPages(productPage.getTotalPages())
                 .build();
 
+    }
+
+    public Pagination<ProductRetrieveDtoResponse> allByCategory(
+            Integer page,
+            Integer categoryId
+    ) {
+        Pageable pageable = PageRequest.of(page, pageSize, Sort.Direction.ASC, property);
+        Page<Product> productPage = productRepository.findByCategoryId(categoryId, pageable);
+
+        List<ProductRetrieveDtoResponse> content = mapProduct(productPage.getContent());
+
+        return Pagination.<ProductRetrieveDtoResponse>
+                builder()
+                .content(content)
+                .page(page)
+                .totalElements((int) productPage.getTotalElements())
+                .size(content.size())
+                .totalPages(productPage.getTotalPages())
+                .build();
     }
 
     public ProductRetrieveDtoResponse find(String argument) {
@@ -77,7 +93,7 @@ public class ProductService {
         categoryService.findById(productCreationDtoRequest.getCategoryId());
 
         Optional<Product> findByName = productRepository.findByName(productCreationDtoRequest.getName());
-        if (findByName.isPresent()) throw new IllegalArgumentException("Producto con este nombre ya existe");
+        if (findByName.isPresent()) throw new EntityExistsException("Producto con este nombre ya existe");
 
         Product product = productMapper.toProduct(productCreationDtoRequest);
         product = productRepository.save(product);
@@ -103,6 +119,13 @@ public class ProductService {
         return Map.of("deleted", Boolean.TRUE);
     }
 
+    public ProductRetrieveDtoResponseV2 findAndMap(Long id) {
+        Product find = productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("El producto no fue encontrado."));
+
+        return productMapper.toProductRetrieveDtoResponseV2(find);
+    }
+
     private Product findProduct(String id) {
         Product findById = findById(id);
         Product findByString = findByString(id);
@@ -118,9 +141,7 @@ public class ProductService {
             Long productId = Long.parseLong(id);
             Optional<Product> findProduct = productRepository.findById(productId);
             if (findProduct.isPresent()) return findProduct.get();
-        } catch (Exception exception) {
-            System.out.println(exception.getCause().getMessage());
-        }
+        } catch (Exception ignored) {}
         return null;
     }
 
@@ -147,6 +168,13 @@ public class ProductService {
         if (productDto.getCategoryId() != null) product.setCategoryId(productDto.getCategoryId());
 
         productRepository.save(product);
+    }
+
+    private List<ProductRetrieveDtoResponse> mapProduct(List<Product> products) {
+        return products
+                .stream()
+                .map(product -> productMapper.toProductRetrieveDtoResponse(product))
+                .toList();
     }
 
 }

@@ -1,4 +1,4 @@
-package com.chapinstore.dto.order_request.response;
+package com.chapinstore.dto.payment.response;
 
 import lombok.Data;
 

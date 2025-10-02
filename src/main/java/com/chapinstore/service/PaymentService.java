@@ -1,13 +1,16 @@
 package com.chapinstore.service;
 
 import com.chapinstore.common.mapper.PaymentMapper;
-import com.chapinstore.dto.order_request.response.PaymentRetrieveDto;
+import com.chapinstore.dto.payment.response.PaymentRetrieveDto;
 import com.chapinstore.dto.payment.request.PaymentCreationRequestDto;
 import com.chapinstore.dto.payment.response.PaymentCreationResponseDto;
+import com.chapinstore.dto.payment.response.PaymentRetrieveDtoV2;
 import com.chapinstore.entity.Customer;
 import com.chapinstore.entity.Payment;
+import com.chapinstore.exception.throwable.PaymentSecurityCompromisedException;
 import com.chapinstore.repository.PaymentRepository;
 import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,12 +32,18 @@ public class PaymentService {
 
     public PaymentCreationResponseDto create(PaymentCreationRequestDto paymentCreation) {
 
+        customerService.find(paymentCreation.getCustomerEmail());
+
         paymentRepository.findByCardNumber(paymentCreation.getCardNumber())
-                .orElseThrow(() -> new EntityExistsException("Este metodo se encuentra duplicado"));
+                .ifPresent(existingPayment -> {
+                    throw new EntityExistsException("Este metodo se encuentra duplicado");
+                });
 
         //ASEGURAR NUMERACION, CVV Y FECHA CON EL BCryptPasswordEncoder
 
         Payment convertedPayment = paymentMapper.toPayment(paymentCreation);
+        String lastFour = getLastFours(paymentCreation.getCardNumber());
+        convertedPayment.setLastFourDigits(lastFour);
         paymentRepository.save(convertedPayment);
 
         return paymentMapper.toPaymentCreationResponseDto(convertedPayment);
@@ -51,6 +60,20 @@ public class PaymentService {
                 .toList();
     }
 
+    public Payment findById(Integer paymentId) {
+        return paymentRepository.findById(paymentId)
+                .orElseThrow(() -> new EntityNotFoundException("Metodo de pago no fue encontrado."));
+    }
+
+    public void isUserPaymentMethodOwner(String email, Integer paymentId) {
+
+        Customer findCustomer = customerService.find(email);
+        Payment findPayment = findById(paymentId);
+
+        if (!findPayment.getCustomerEmail().equals(findCustomer.getEmail()))
+            throw new PaymentSecurityCompromisedException("Parece que no eres el dueño de este metodo de pago.");
+    }
+
     public Map<String, Boolean> delete(Integer paymentId) {
 
         Optional<Payment> payment = paymentRepository.findById(paymentId);
@@ -60,6 +83,15 @@ public class PaymentService {
         return Map.of("deleted", Boolean.TRUE);
     }
 
+    public String getLastFours(String cardNumber) {
+        return cardNumber.substring(12, 16);
+    }
 
+    public PaymentRetrieveDtoV2 findAndMap(Integer paymentId) {
+        return paymentMapper
+                .toPaymentRetrieveDtoV2(
+                        findById(paymentId)
+                );
+    }
 
 }
