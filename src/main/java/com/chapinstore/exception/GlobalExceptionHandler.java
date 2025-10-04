@@ -1,5 +1,6 @@
 package com.chapinstore.exception;
 
+import com.chapinstore.exception.throwable.AddressCreationException;
 import com.chapinstore.exception.throwable.InvalidOrderStatusException;
 import com.chapinstore.exception.throwable.PaymentSecurityCompromisedException;
 import jakarta.persistence.EntityExistsException;
@@ -106,6 +107,35 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(HttpStatus.CONFLICT.value())
+                .body(body);
+
+    }
+
+    @ExceptionHandler(AddressCreationException.class)
+    public ResponseEntity<Map<String, Object>> handleAddressCreationException(AddressCreationException ex) {
+
+        Map<String, Object> body = Map.of(
+                "status", HttpStatus.NOT_ACCEPTABLE.value(),
+                "error", "Cannot add more addresses",
+                "message", ex.getLocalizedMessage()
+        );
+
+        return  ResponseEntity
+                .status(HttpStatus.NOT_ACCEPTABLE.value())
+                .body(body);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Map<String, Object>> handleIllegalArgumentException(IllegalArgumentException ex) {
+
+        Map<String, Object> body = Map.of(
+                "status", HttpStatus.NOT_ACCEPTABLE.value(),
+                "error", "Request not acceptable",
+                "message", ex.getLocalizedMessage()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_ACCEPTABLE.value())
                 .body(body);
 
     }

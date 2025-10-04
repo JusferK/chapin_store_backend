@@ -90,6 +90,7 @@ public class DetailService {
                 .sum();
 
         orderRequest.setTotalAmount(total);
+        orderRequestService.updateTotal(orderRequest);
 
         return Map.of("updated", true);
     }

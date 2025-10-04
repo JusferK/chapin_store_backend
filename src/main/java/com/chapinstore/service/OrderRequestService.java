@@ -128,6 +128,10 @@ public class OrderRequestService {
         return orderRequestUpdateDto;
     }
 
+    public void updateTotal(OrderRequest orderRequest) {
+        orderRequestRepository.save(orderRequest);
+    }
+
     public Map<String, String> updateStatus(Status status, Integer orderRequestId) {
 
         OrderRequest findOrder = orderRequestRepository.findById(orderRequestId)
@@ -214,7 +218,6 @@ public class OrderRequestService {
     }
 
     private List<OrderRequest> findById(String id) {
-
         try {
             Integer parsedId = Integer.parseInt(id);
             Optional<OrderRequest> order = orderRequestRepository.findById(parsedId);

@@ -3,9 +3,11 @@ package com.chapinstore.service;
 import com.chapinstore.common.mapper.CustomerAddressMapper;
 import com.chapinstore.dto.customer_address.request.CustomerAddressCreationDto;
 import com.chapinstore.dto.customer_address.response.CustomerAddressCreationResponseDto;
+import com.chapinstore.dto.customer_address.response.CustomerAddressRetrieveDto;
 import com.chapinstore.entity.Customer;
 import com.chapinstore.entity.CustomerAddress;
 import com.chapinstore.enums.Country;
+import com.chapinstore.exception.throwable.AddressCreationException;
 import com.chapinstore.repository.CustomerAddressRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,10 @@ public class CustomerAddressService {
     @Autowired
     private CustomerAddressMapper customerAddressMapper;
 
+    @Autowired
+    @Lazy
+    private CustomerService customerService;
+
     public void saveAddress(List<CustomerAddressCreationDto> customerAddressCreationDto, String email) {
 
         List<CustomerAddress> addresses = customerAddressCreationDto
@@ -38,8 +44,11 @@ public class CustomerAddressService {
         customerAddressRepository.saveAll(addresses);
     }
 
-    public CustomerAddressCreationResponseDto createAddress(CustomerAddressCreationDto customerAddressCreationDto, String email) throws IllegalAccessException {
-        if (!isAllowedToAdd(email)) throw new IllegalAccessException("Solo se puede almacenar una direccion a la vez");
+    public CustomerAddressCreationResponseDto createAddress(CustomerAddressCreationDto customerAddressCreationDto, String email) {
+
+        customerService.find(email);
+
+        if (!isAllowedToAdd(email)) throw new AddressCreationException("Solo se puede almacenar una direccion a la vez");
 
         CustomerAddress address =  customerAddressMapper.toCustomerAddress(customerAddressCreationDto);
         address.setCustomerEmail(email);
@@ -47,6 +56,15 @@ public class CustomerAddressService {
 
         return customerAddressMapper
                 .toCustomerAddressCreationResponseDto(customerAddressRepository.save(address));
+    }
+
+    public List<CustomerAddressRetrieveDto> get(String email) {
+        List<CustomerAddress> findAddresses = customerAddressRepository.findByCustomerEmail(email);
+
+        return findAddresses
+                .stream()
+                .map(address -> customerAddressMapper.toCustomerAddressRetrieveDto(address))
+                .toList();
     }
 
     /*
