@@ -25,7 +25,11 @@ import java.util.List;
 public class Customer implements Serializable, UserDetails {
 
     @Id
-    @Column(length = 45, unique = true, nullable = false)
+    @Column(
+            length = 60,
+            unique = true,
+            nullable = false
+    )
     private String email;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

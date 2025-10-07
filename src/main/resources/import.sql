@@ -56,70 +56,101 @@
 
 --------------------------------------------------------------------------------------------------------------------------------  MODULO ---------------------------------------------------------------------------------
 
-INSERT INTO Module (id, name, base_path) values (1, 'productos','/product');
-INSERT INTO Module (id, name, base_path) values (2, 'pagos','/payment');
-INSERT INTO Module (id, name, base_path) values (3, 'ordenes','/order-request');
-INSERT INTO Module (id, name, base_path) values (4, 'detalle','/detail');
-INSERT INTO Module (id, name, base_path) values (5, 'clientes', '/customer');
-INSERT INTO Module (id, name, base_path) values (6, 'direcciones', '/address');
-INSERT INTO Module (id, name, base_path) values (7, 'categorias', '/category');
-INSERT INTO Module (id, name, base_path) values (8, 'administradores', '/administrator');
+INSERT INTO Module (id, name, base_path, active) values (1, 'productos','/product', true);
+INSERT INTO Module (id, name, base_path, active) values (2, 'pagos','/payment', true);
+INSERT INTO Module (id, name, base_path, active) values (3, 'ordenes','/order-request', true);
+INSERT INTO Module (id, name, base_path, active) values (4, 'detalle','/detail', true);
+INSERT INTO Module (id, name, base_path, active) values (5, 'clientes', '/customer', true);
+INSERT INTO Module (id, name, base_path, active) values (6, 'direcciones', '/address', true);
+INSERT INTO Module (id, name, base_path, active) values (7, 'categorias', '/category', true);
+INSERT INTO Module (id, name, base_path, active) values (8, 'administradores', '/administrator', true);
+INSERT INTO Module (id, name, base_path, active) values (9, 'autenticacion', '/auth', true);
+INSERT INTO Module (id, name, base_path, active) values (10, 'role', '/role', true);
+INSERT INTO Module (id, name, base_path, active) values (11, 'operaciones', '/operation', true);
+INSERT INTO Module (id, name, base_path, active) values (12, 'modulos', '/module', true);
+INSERT INTO Module (id, name, base_path, active) values (13, 'permisos', '/permission', true);
 
 --------------------------------------------------------------------------------------------------------------------------------  OPERACION ---------------------------------------------------------------------------------
 
 -- PRODUCTOS
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (1, 'READ_ALL_PRODUCTS', '/get-all', 'GET', 1, false);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (2, 'READ_ALL_PRODUCTS_BY_CATEGORY', '/get-all-by-category', 'GET', 1, true);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (3, 'READ_ONE_PRODUCT', '/get', 'GET', 1, true);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (4, 'CREATE_PRODUCT', '/new', 'POST', 1, false);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (5, 'PATCH_PRODUCT', '/patch', 'PATCH', 1, false);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (6, 'DELETE_PRODUCT', '/delete', 'DELETE', 1, false);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (1, 'READ_ALL_PRODUCTS', '/get-all', 'GET', 1, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (2, 'READ_ALL_PRODUCTS_BY_CATEGORY', '/get-all-by-category', 'GET', 1, true, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (3, 'READ_ONE_PRODUCT', '/get', 'GET', 1, true, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (4, 'CREATE_PRODUCT', '/new', 'POST', 1, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (5, 'PATCH_PRODUCT', '/patch', 'PATCH', 1, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (6, 'DELETE_PRODUCT', '/delete', 'DELETE', 1, false, true);
 
 -- PAGOS
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (7, 'CREATE_PAYMENT', '/new', 'POST', 2, false);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (8, 'READ_ALL_OWN_PAYMENT', '/find', 'GET', 2, false);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (9, 'DELETE_PAYMENT', '/delete', 'DELETE', 2, false);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (7, 'CREATE_PAYMENT', '/new', 'POST', 2, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (8, 'READ_ALL_OWN_PAYMENT', '/find', 'GET', 2, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (9, 'DELETE_PAYMENT', '/delete', 'DELETE', 2, false, true);
 
 -- ORDENES
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (10, 'READ_ALL_ORDERS', '/get-all', 'GET', 3, false);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (11, 'READ_ALL_OWN_ORDERS', '/get', 'GET', 3, false);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (12, 'CREATE_ORDER', '/new', 'POST', 3, false);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (13, 'PATCH_ORDER', '/patch', 'PATCH', 3, false);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (14, 'PATCH_ORDER_STATUS', '/update/status', 'PATCH', 3, false);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (15, 'DELETE_ORDER', '/delete', 'DELETE', 3, false);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (10, 'READ_ALL_ORDERS', '/get-all', 'GET', 3, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (11, 'READ_ALL_OWN_ORDERS', '/get', 'GET', 3, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (12, 'CREATE_ORDER', '/new', 'POST', 3, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (13, 'PATCH_ORDER', '/patch', 'PATCH', 3, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (14, 'PATCH_ORDER_STATUS', '/update/status', 'PATCH', 3, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (15, 'DELETE_ORDER', '/delete', 'DELETE', 3, false, true);
 
 -- DETALLE
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (16, 'PATCH_DETAIL_QUANTITY', '/patch/quantity', 'PATCH', 4, false);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (16, 'PATCH_DETAIL_QUANTITY', '/patch/quantity', 'PATCH', 4, false, true);
 
 -- CLIENTE
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (17, 'READ_ALL_CUSTOMERS', '/get-all', 'GET', 5, false);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (18, 'READ_ONE_CUSTOMER', '/get', 'GET', 5, false);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (19, 'CREATE_CUSTOMER', '/register', 'POST', 5, true);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (20, 'PATCH_CUSTOMER', '/patch', 'PATCH', 5, false);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (21, 'DELETE_CUSTOMER', '/disable/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}', 'DELETE', 5, false);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (17, 'READ_ALL_CUSTOMERS', '/get-all', 'GET', 5, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (18, 'READ_ONE_CUSTOMER', '/get', 'GET', 5, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (19, 'CREATE_CUSTOMER', '/register', 'POST', 5, true, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (20, 'PATCH_CUSTOMER', '/patch', 'PATCH', 5, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (21, 'DELETE_CUSTOMER', '/disable/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}', 'DELETE', 5, false, true);
 
 -- DIRECCIONES
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (22, 'CREATE_ADDRESS', '/new', 'POST', 6, false);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (23, 'READ_ALL_OWN_ADDRESS', '/get', 'GET', 6, false);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (22, 'CREATE_ADDRESS', '/new', 'POST', 6, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (23, 'READ_ALL_OWN_ADDRESS', '/get', 'GET', 6, false, true);
 
 -- CATEGORIAS
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (24, 'READ_ALL_CATEGORIES', '/get-all', 'GET', 7, true);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (25, 'CREATE_CATEGORY', '/new', 'POST', 7, false);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (26, 'PATCH_CATEGORY', '/patch', 'PATCH', 7, false);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (27, 'DELETE_CATEGORY', '/delete', 'DELETE', 7, false);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (24, 'READ_ALL_CATEGORIES', '/get-all', 'GET', 7, true, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (25, 'CREATE_CATEGORY', '/new', 'POST', 7, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (26, 'PATCH_CATEGORY', '/patch', 'PATCH', 7, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (27, 'DELETE_CATEGORY', '/delete', 'DELETE', 7, false, true);
 
 -- ADMINISTRATOR
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (28, 'READ_ALL_ADMINISTRATORS', '/get-all', 'GET', 8, false);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (29, 'READ_ONE_ADMINISTRATOR', '/get', 'GET', 8, false);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (30, 'CREATE_ADMINISTRATOR', '/register', 'POST', 8, false);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (31, 'PATCH_ADMINISTRATOR_PASSWORD', '/patch/password', 'PATCH', 8, false);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all) values (32, 'DELETE_ADMINISTRATOR', '/disable', 'DELETE', 8, false);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (28, 'READ_ALL_ADMINISTRATORS', '/get-all', 'GET', 8, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (29, 'READ_ONE_ADMINISTRATOR', '/get', 'GET', 8, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (30, 'CREATE_ADMINISTRATOR', '/register', 'POST', 8, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (31, 'PATCH_ADMINISTRATOR_PASSWORD', '/patch/password', 'PATCH', 8, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (32, 'DELETE_ADMINISTRATOR', '/disable', 'DELETE', 8, false, true);
+
+-- AUTHENTICATE
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (33, 'LOGIN', '/login', 'POST', 9, true, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (34, 'LOGOUT', '/logout', 'POST', 9, false, true);
+
+-- ROLE
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (35, 'CREATE_ROLE', '/new', 'POST', 10, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (36, 'READ_ALL_ROLES', '/get-all', 'GET', 10, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (37, 'DELETE_ROLE', '/disable', 'DELETE', 10, false, true);
+
+-- OPERACIONES
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (38, 'CREATE_OPERATION', '/new', 'POST', 11, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (39, 'READ_ALL_OPERATIONS', '/get-all', 'GET', 11, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (40, 'PATCH_OPERATION', '/patch', 'PATCH', 11, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (41, 'DELETE_OPERATION', '/disable', 'DELETE', 11, false, true);
+
+--MODULES
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (42, 'CREATE_MODULE', '/new', 'POST', 12, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (43, 'READ_ALL_MODULES', '/get-all', 'GET', 12, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (44, 'PATCH_MODULE', '/patch', 'PATCH', 12, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (45, 'DELETE_MODULE', '/disable', 'DELETE', 12, false, true);
+
+--GRANTED PERMISSIONS
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (46, 'CREATE_GRANTED_PERMISSIONS', '/new', 'POST', 13, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (47, 'DELETE_GRANTED_PERMISSION', '/delete', 'DELETE', 13, false, true);
+
 
 --------------------------------------------------------------------------------------------------------------------------------  ROLES ---------------------------------------------------------------------------------
 
-INSERT INTO Role (id, name) values (1, 'ADMINISTRATOR');
-INSERT INTO Role (id, name) values (2, 'MANAGER');
-INSERT INTO Role (id, name) values (3, 'CUSTOMER');
+INSERT INTO Role (id, name, active) values (1, 'ADMINISTRATOR', true);
+INSERT INTO Role (id, name, active) values (2, 'MANAGER', true);
+INSERT INTO Role (id, name, active) values (3, 'CUSTOMER', true);
 
 --------------------------------------------------------------------------------------------------------------------------------  GRANTED PERMISSIONS ---------------------------------------------------------------------------------
 
@@ -163,51 +194,81 @@ INSERT INTO granted_permission (id, role_id, operation_id) values (22, 1, 30);
 INSERT INTO granted_permission (id, role_id, operation_id) values (23, 1, 31);
 INSERT INTO granted_permission (id, role_id, operation_id) values (24, 1, 32);
 
+-- /AUTENTICACION
+INSERT INTO granted_permission (id, role_id, operation_id) values (25, 1, 34);
+
+-- /ROLE
+INSERT INTO granted_permission (id, role_id, operation_id) values (26, 1, 35);
+INSERT INTO granted_permission (id, role_id, operation_id) values (27, 1, 36);
+INSERT INTO granted_permission (id, role_id, operation_id) values (28, 1, 37);
+
+-- /OPERACIONES
+INSERT INTO granted_permission (id, role_id, operation_id) values (29, 1, 38);
+INSERT INTO granted_permission (id, role_id, operation_id) values (30, 1, 39);
+INSERT INTO granted_permission (id, role_id, operation_id) values (31, 1, 40);
+INSERT INTO granted_permission (id, role_id, operation_id) values (32, 1, 41);
+
+-- /MODULES
+INSERT INTO granted_permission (id, role_id, operation_id) values (33, 1, 42);
+INSERT INTO granted_permission (id, role_id, operation_id) values (34, 1, 43);
+INSERT INTO granted_permission (id, role_id, operation_id) values (35, 1, 44);
+INSERT INTO granted_permission (id, role_id, operation_id) values (36, 1, 45);
+
+-- /GRANTED PERMISSIONS
+INSERT INTO granted_permission (id, role_id, operation_id) values (37, 1, 46);
+INSERT INTO granted_permission (id, role_id, operation_id) values (38, 1, 47);
+
 -------------------------------------------------------------------------------------------- MANAGER PERMISSIONS
 
 -- /PRODUCTOS
-INSERT INTO granted_permission (id, role_id, operation_id) values (25, 2, 1);
-INSERT INTO granted_permission (id, role_id, operation_id) values (26, 2, 2);
-INSERT INTO granted_permission (id, role_id, operation_id) values (27, 2, 3);
-INSERT INTO granted_permission (id, role_id, operation_id) values (28, 2, 4);
-INSERT INTO granted_permission (id, role_id, operation_id) values (29, 2, 5);
+INSERT INTO granted_permission (id, role_id, operation_id) values (39, 2, 1);
+INSERT INTO granted_permission (id, role_id, operation_id) values (40, 2, 2);
+INSERT INTO granted_permission (id, role_id, operation_id) values (41, 2, 3);
+INSERT INTO granted_permission (id, role_id, operation_id) values (42, 2, 4);
+INSERT INTO granted_permission (id, role_id, operation_id) values (43, 2, 5);
 
 -- /ORDENES
-INSERT INTO granted_permission (id, role_id, operation_id) values (30, 2, 10);
-INSERT INTO granted_permission (id, role_id, operation_id) values (31, 2, 11);
-INSERT INTO granted_permission (id, role_id, operation_id) values (32, 2, 14);
-INSERT INTO granted_permission (id, role_id, operation_id) values (33, 2, 15);
+INSERT INTO granted_permission (id, role_id, operation_id) values (44, 2, 10);
+INSERT INTO granted_permission (id, role_id, operation_id) values (45, 2, 11);
+INSERT INTO granted_permission (id, role_id, operation_id) values (46, 2, 14);
+INSERT INTO granted_permission (id, role_id, operation_id) values (47, 2, 15);
 
 -- /DETALLE
-INSERT INTO granted_permission (id, role_id, operation_id) values (34, 2, 16);
+INSERT INTO granted_permission (id, role_id, operation_id) values (48, 2, 16);
 
 -- /CLIENTE
-INSERT INTO granted_permission (id, role_id, operation_id) values (35, 2, 17);
-INSERT INTO granted_permission (id, role_id, operation_id) values (36, 2, 18);
-INSERT INTO granted_permission (id, role_id, operation_id) values (37, 2, 21);
+INSERT INTO granted_permission (id, role_id, operation_id) values (49, 2, 17);
+INSERT INTO granted_permission (id, role_id, operation_id) values (50, 2, 18);
+INSERT INTO granted_permission (id, role_id, operation_id) values (51, 2, 21);
 
 -- /CATEGORIAS
-INSERT INTO granted_permission (id, role_id, operation_id) values (38, 2, 25);
-INSERT INTO granted_permission (id, role_id, operation_id) values (39, 2, 26);
-INSERT INTO granted_permission (id, role_id, operation_id) values (40, 2, 27);
+INSERT INTO granted_permission (id, role_id, operation_id) values (52, 2, 25);
+INSERT INTO granted_permission (id, role_id, operation_id) values (53, 2, 26);
+INSERT INTO granted_permission (id, role_id, operation_id) values (54, 2, 27);
+
+-- /AUTENTICACION
+INSERT INTO granted_permission (id, role_id, operation_id) values (55, 2, 34);
 
 -------------------------------------------------------------------------------------------- CUSTOMER
 
 -- /PAGOS
-INSERT INTO granted_permission (id, role_id, operation_id) values (41, 3, 7);
-INSERT INTO granted_permission (id, role_id, operation_id) values (42, 3, 8);
-INSERT INTO granted_permission (id, role_id, operation_id) values (43, 3, 9);
+INSERT INTO granted_permission (id, role_id, operation_id) values (56, 3, 7);
+INSERT INTO granted_permission (id, role_id, operation_id) values (57, 3, 8);
+INSERT INTO granted_permission (id, role_id, operation_id) values (58, 3, 9);
 
 -- /ORDENES
-INSERT INTO granted_permission (id, role_id, operation_id) values (44, 3, 11);
-INSERT INTO granted_permission (id, role_id, operation_id) values (45, 3, 12);
-INSERT INTO granted_permission (id, role_id, operation_id) values (46, 3, 13);
-INSERT INTO granted_permission (id, role_id, operation_id) values (47, 3, 14);
-INSERT INTO granted_permission (id, role_id, operation_id) values (48, 3, 15);
+INSERT INTO granted_permission (id, role_id, operation_id) values (59, 3, 11);
+INSERT INTO granted_permission (id, role_id, operation_id) values (60, 3, 12);
+INSERT INTO granted_permission (id, role_id, operation_id) values (61, 3, 13);
+INSERT INTO granted_permission (id, role_id, operation_id) values (62, 3, 14);
+INSERT INTO granted_permission (id, role_id, operation_id) values (63, 3, 15);
 
 -- /DETAIL
-INSERT INTO granted_permission (id, role_id, operation_id) values (49, 3, 16);
+INSERT INTO granted_permission (id, role_id, operation_id) values (64, 3, 16);
 
 -- /DIRECCIONES
-INSERT INTO granted_permission (id, role_id, operation_id) values (50, 3, 22);
-INSERT INTO granted_permission (id, role_id, operation_id) values (51, 3, 23);
+INSERT INTO granted_permission (id, role_id, operation_id) values (65, 3, 22);
+INSERT INTO granted_permission (id, role_id, operation_id) values (66, 3, 23);
+
+-- /AUTENTICACION
+INSERT INTO granted_permission (id, role_id, operation_id) values (67, 3, 34);

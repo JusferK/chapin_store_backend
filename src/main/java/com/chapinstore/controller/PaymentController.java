@@ -6,6 +6,7 @@ import com.chapinstore.dto.payment.response.PaymentCreationResponseDto;
 import com.chapinstore.service.PaymentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,8 @@ public class PaymentController {
             @Valid @RequestBody PaymentCreationRequestDto paymentCreationRequestDto
     ) {
         return ResponseEntity
-                .ok(paymentService.create(paymentCreationRequestDto));
+                .status(HttpStatus.CREATED)
+                .body(paymentService.create(paymentCreationRequestDto));
     }
 
     @GetMapping("/find")

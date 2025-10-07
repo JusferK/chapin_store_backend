@@ -58,6 +58,12 @@ public class AdministratorService {
                 .orElseThrow(() -> new EntityNotFoundException("Administrator no encontrado"));
     }
 
+    public Administrator findNullable(String username) {
+        return administratorRepository
+                .findByUsername(username)
+                .orElse(null);
+    }
+
     public Map<String, Boolean> updatePassword(String username, Map<String, String> request) {
 
         String password = request.get("password");
@@ -72,7 +78,7 @@ public class AdministratorService {
 
     public Map<String, Boolean> disable(String username) {
         Administrator administrator = find(username);
-        administrator.setIsAdminActive(false);
+        administrator.setIsActive(false);
         administratorRepository.save(administrator);
         return Map.of("disable", true);
     }

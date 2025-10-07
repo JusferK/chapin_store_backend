@@ -2,11 +2,13 @@ package com.chapinstore.exception;
 
 import com.chapinstore.exception.throwable.AddressCreationException;
 import com.chapinstore.exception.throwable.InvalidOrderStatusException;
+import com.chapinstore.exception.throwable.LogoutMissingTokenException;
 import com.chapinstore.exception.throwable.PaymentSecurityCompromisedException;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -138,6 +140,34 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.NOT_ACCEPTABLE.value())
                 .body(body);
 
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<Map<String, Object>> handleAuthenticationException(AuthenticationException ex) {
+
+        Map<String, Object> body = Map.of(
+                "status", HttpStatus.UNAUTHORIZED.value(),
+                "message", "Las credenciales ingresadas son incorrectas.",
+                "error", ex.getLocalizedMessage()
+        );
+
+        return  ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED.value())
+                .body(body);
+    }
+
+    @ExceptionHandler(LogoutMissingTokenException.class)
+    public ResponseEntity<Map<String, Object>> handleLogoutTokenMissingException(LogoutMissingTokenException ex) {
+
+        Map<String, Object> body = Map.of(
+                "status", HttpStatus.CONFLICT.value(),
+                "message", "Token missing",
+                "error", ex.getLocalizedMessage()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT.value())
+                .body(body);
     }
 
 }

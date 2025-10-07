@@ -40,7 +40,7 @@ public class Payment implements Serializable {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Date expirationDate;
 
-    @Column(length = 45, nullable = false)
+    @Column(nullable = false)
     private String customerEmail;
 
 }

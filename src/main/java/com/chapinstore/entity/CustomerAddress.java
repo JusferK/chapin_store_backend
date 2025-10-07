@@ -28,7 +28,6 @@ public class CustomerAddress implements Serializable {
     @Column(length = 45, nullable = false)
     private String house;
 
-    @Column(length = 45, nullable = false)
     @Enumerated(EnumType.STRING)
     private Department city;
 

@@ -46,13 +46,19 @@ public class JwtService {
                 .getSubject();
     }
 
+    public String extractJwtFromRequest(HttpServletRequest request) {
+        String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+
+        if (!StringUtils.hasText(authorizationHeader) || !authorizationHeader.startsWith("Bearer ")) return null;
+        return authorizationHeader.split(" ")[1];
+    }
+
     private Claims getClaims(String jwt) {
         return Jwts.parser()
                 .verifyWith(generateKey())
                 .build()
                 .parseSignedClaims(jwt)
                 .getPayload();
-
     }
 
     private SecretKey generateKey() {

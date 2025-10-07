@@ -25,7 +25,7 @@ public class Administrator implements Serializable, UserDetails {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    private Boolean isAdminActive;
+    private Boolean isActive;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
@@ -35,7 +35,7 @@ public class Administrator implements Serializable, UserDetails {
     public Administrator(String username, String password) {
         this.username = username;
         this.password = password;
-        this.isAdminActive = true;
+        this.isActive = true;
     }
 
     public Administrator() {}
@@ -73,7 +73,7 @@ public class Administrator implements Serializable, UserDetails {
     }
 
     @JsonIgnore
-    public boolean isIsAdminActive() {
+    public boolean isIsActive() {
         return true;
     }
 

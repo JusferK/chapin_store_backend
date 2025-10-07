@@ -12,7 +12,7 @@ public class AdministratorCreationDto {
     private String username;
 
     @NotNull(message = "La contraseña es requerida")
-    @Size(max = 45, message = "La contraseña es de maximo de 45 caracteres")
+    @Size(min = 8, max = 45, message = "La contraseña esta entre 8 a 45 caracteres")
     private String password;
 
     @NotNull(message = "El tipo de usuario es requerido")

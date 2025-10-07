@@ -12,7 +12,7 @@ import java.util.List;
 public class CustomerCreationDto {
 
     @NotNull(message = "El correo es requerido")
-    @Size(min = 5, max = 45, message = "El correo debe de estar entre 10 y 45 caracteres")
+    @Size(min = 5, max = 60, message = "El correo debe de estar entre 5 y 60 caracteres")
     @Pattern(
             regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
             message = "Formato del correo es incorrecto"
@@ -20,7 +20,7 @@ public class CustomerCreationDto {
     private String email;
 
     @NotNull(message = "La contraseña es requerida")
-    @Size(min = 5, max = 45, message = "La contraseña tiene que ser de 5 a 45 caracteres")
+    @Size(min = 8, max = 45, message = "La contraseña tiene que ser de 8 a 45 caracteres")
     @Pattern(
             regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%,*?&])[A-Za-z\\d@$!%,*?&]{8,}$",
             message = "La contraseña debe contener al menos una mayúscula, una minúscula, un número y un carácter especial (@$!%*?&,)"

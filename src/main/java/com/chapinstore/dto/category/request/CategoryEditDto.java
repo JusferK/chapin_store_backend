@@ -14,7 +14,7 @@ public class CategoryEditDto {
     @NotNull(message = "El id de la categoria es requerido.")
     private Integer categoryId;
 
-    @Size(min = 5, max = 45, message = "El nombre tiene que estar entre 5 a 45 caracteres.")
+    @Size(min = 3, max = 100, message = "El nombre tiene que estar entre 3 a 100 caracteres.")
     private String name;
 
     @Size(min = 5, max = 300, message = "La descripcion tiene que estar entre 5 a 300 caracteres.")

@@ -21,4 +21,11 @@ public class GrantedPermission implements Serializable {
     @JoinColumn(name = "operation_id")
     private Operation operation;
 
+    public GrantedPermission() {}
+
+    public GrantedPermission(Role role, Operation operation) {
+        this.role = role;
+        this.operation = operation;
+    }
+
 }

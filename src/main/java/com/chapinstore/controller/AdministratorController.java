@@ -38,7 +38,7 @@ public class AdministratorController {
             @Valid @RequestBody AdministratorCreationDto request
     ) {
         return ResponseEntity
-                .status(HttpStatus.OK)
+                .status(HttpStatus.CREATED)
                 .body(administratorService.register(request));
 
     }

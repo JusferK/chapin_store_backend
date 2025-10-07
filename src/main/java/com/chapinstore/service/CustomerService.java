@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class CustomerService {
@@ -128,6 +129,12 @@ public class CustomerService {
     public Customer find(String email) {
         return customerRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente no fue encontrado."));
+    }
+
+    public Customer findNullable(String email) {
+        return customerRepository
+                .findByEmail(email)
+                .orElse(null);
     }
 
     private void patch(Customer customer, CustomerEditDto customerEditDto) {
