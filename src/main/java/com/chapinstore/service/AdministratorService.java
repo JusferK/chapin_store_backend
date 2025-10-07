@@ -1,11 +1,15 @@
 package com.chapinstore.service;
 
 import com.chapinstore.dto.administrator.request.AdministratorCreationDto;
+import com.chapinstore.dto.authentication.response.AuthenticationResponse;
 import com.chapinstore.entity.Administrator;
 import com.chapinstore.repository.AdministratorRepository;
+import com.chapinstore.service.security.JwtService;
+import com.chapinstore.service.security.RoleService;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,20 +21,32 @@ public class AdministratorService {
     @Autowired
     private AdministratorRepository administratorRepository;
 
-    public Map<String, ?> register(AdministratorCreationDto request) {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtService jwtService;
+
+    @Autowired
+    private RoleService roleService;
+
+    public AuthenticationResponse<Administrator> register(AdministratorCreationDto request) {
 
         administratorRepository.findByUsername(request.getUsername())
                 .ifPresent(administrator -> {
                     throw new EntityExistsException("Administrador con este usuario ya existe");
                 });
 
-        Administrator administrator = new Administrator(request.getUsername(), request.getPassword());
-        administratorRepository.save(administrator);
-
-        return Map.of(
-                "created", true,
-                "administrator", administrator.getUsername()
+        Administrator administrator = new Administrator(
+                request.getUsername(),
+                passwordEncoder.encode(request.getPassword())
         );
+        administrator.setRole(roleService.CustomerRole(request.getRole()));
+        Administrator adminSaved = administratorRepository.save(administrator);
+
+        String jwt = jwtService.generate(adminSaved, generateClaims(adminSaved));
+
+        return new AuthenticationResponse<>(jwt, adminSaved);
     }
 
     public List<Administrator> getAll() {
@@ -56,9 +72,17 @@ public class AdministratorService {
 
     public Map<String, Boolean> disable(String username) {
         Administrator administrator = find(username);
-        administrator.setEnabled(false);
+        administrator.setIsAdminActive(false);
         administratorRepository.save(administrator);
         return Map.of("disable", true);
+    }
+
+    private Map<String, Object> generateClaims(Administrator administrator) {
+        return Map.of(
+                "name", administrator.getUsername(),
+                "role", administrator.getRole().getName(),
+                "authorities", administrator.getAuthorities()
+        );
     }
 
 }

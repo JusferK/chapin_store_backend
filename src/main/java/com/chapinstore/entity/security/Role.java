@@ -20,7 +20,7 @@ public class Role implements Serializable {
 
     @OneToMany(
             mappedBy = "role",
-            fetch = FetchType.LAZY,
+            fetch = FetchType.EAGER,
             cascade = CascadeType.ALL
     )
     private List<GrantedPermission> permissions = new ArrayList<>();

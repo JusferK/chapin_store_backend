@@ -15,4 +15,7 @@ public class AdministratorCreationDto {
     @Size(max = 45, message = "La contraseña es de maximo de 45 caracteres")
     private String password;
 
+    @NotNull(message = "El tipo de usuario es requerido")
+    private String role;
+
 }

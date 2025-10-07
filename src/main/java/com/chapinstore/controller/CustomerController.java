@@ -1,5 +1,6 @@
 package com.chapinstore.controller;
 
+import com.chapinstore.dto.authentication.response.AuthenticationResponse;
 import com.chapinstore.dto.customer.creation.CustomerCreationDto;
 import com.chapinstore.dto.customer.creation.CustomerEditDto;
 import com.chapinstore.dto.customer.response.CustomerCreationResponseDto;
@@ -25,21 +26,21 @@ public class CustomerController {
     public ResponseEntity<Pagination<CustomerResponseDto>> allCustomers(@RequestParam(required = false, defaultValue = "0") Integer page) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(customerService.getAllCustomers(page));
+                .body(customerService.getAll(page));
     }
 
     @GetMapping("/get")
     public ResponseEntity<CustomerResponseDto> getCustomer(@RequestParam String email) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(customerService.getCustomer(email));
+                .body(customerService.get(email));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<CustomerCreationResponseDto> registerCustomer(@Valid @RequestBody CustomerCreationDto customerCreationDto) {
+    public ResponseEntity<AuthenticationResponse<CustomerCreationResponseDto>> registerCustomer(@Valid @RequestBody CustomerCreationDto request) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(customerService.registerCustomer(customerCreationDto));
+                .body(customerService.register(request));
     }
 
     @PatchMapping("/patch")
@@ -48,7 +49,7 @@ public class CustomerController {
     ) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(customerService.patchCustomer(customerEditDto));
+                .body(customerService.patch(customerEditDto));
     }
 
     @DeleteMapping("/disable/{email}")

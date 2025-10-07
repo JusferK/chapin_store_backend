@@ -16,7 +16,7 @@ public class DetailController {
     @Autowired
     private DetailService detailService;
 
-    @PatchMapping("/update/quantity")
+    @PatchMapping("/patch/quantity")
     public ResponseEntity<Map<String, Boolean>> update(
             @Valid @RequestBody DetailUpdateRequestDto request,
             @RequestParam Integer orderRequestId

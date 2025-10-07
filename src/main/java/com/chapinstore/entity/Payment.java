@@ -28,11 +28,11 @@ public class Payment implements Serializable {
     @Column(nullable = false, length = 4)
     private String lastFourDigits;
 
-    @Column(nullable = false, length = 3)
+    @Column(nullable = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String cvv;
 
-    @Column(length = 16, nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String cardNumber;
 

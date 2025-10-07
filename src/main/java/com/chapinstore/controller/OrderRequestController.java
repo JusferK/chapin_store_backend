@@ -50,7 +50,7 @@ public class OrderRequestController {
                 .body(orderRequestService.create(orderRequest));
     }
 
-    @PatchMapping("/update")
+    @PatchMapping("/patch")
     public ResponseEntity<OrderRequestUpdateDto> update(
             @Valid @RequestBody OrderRequestUpdateDto orderRequestUpdateDto
     ) {

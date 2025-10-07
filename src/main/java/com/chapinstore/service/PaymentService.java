@@ -12,6 +12,7 @@ import com.chapinstore.repository.PaymentRepository;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +31,9 @@ public class PaymentService {
     @Autowired
     private PaymentMapper paymentMapper;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public PaymentCreationResponseDto create(PaymentCreationRequestDto paymentCreation) {
 
         customerService.find(paymentCreation.getCustomerEmail());
@@ -42,8 +46,13 @@ public class PaymentService {
         //ASEGURAR NUMERACION, CVV Y FECHA CON EL BCryptPasswordEncoder
 
         Payment convertedPayment = paymentMapper.toPayment(paymentCreation);
+        convertedPayment.setCardNumber(passwordEncoder.encode(paymentCreation.getCardNumber()));
+        convertedPayment.setCvv(passwordEncoder.encode(paymentCreation.getCvv()));
+
+
         String lastFour = getLastFours(paymentCreation.getCardNumber());
         convertedPayment.setLastFourDigits(lastFour);
+
         paymentRepository.save(convertedPayment);
 
         return paymentMapper.toPaymentCreationResponseDto(convertedPayment);

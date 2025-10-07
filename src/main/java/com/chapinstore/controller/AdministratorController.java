@@ -1,6 +1,7 @@
 package com.chapinstore.controller;
 
 import com.chapinstore.dto.administrator.request.AdministratorCreationDto;
+import com.chapinstore.dto.authentication.response.AuthenticationResponse;
 import com.chapinstore.entity.Administrator;
 import com.chapinstore.service.AdministratorService;
 import jakarta.validation.Valid;
@@ -33,7 +34,7 @@ public class AdministratorController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Map<String, ?>> register(
+    public ResponseEntity<AuthenticationResponse<Administrator>> register(
             @Valid @RequestBody AdministratorCreationDto request
     ) {
         return ResponseEntity
@@ -42,7 +43,7 @@ public class AdministratorController {
 
     }
 
-    @PatchMapping("/update/password")
+    @PatchMapping("/patch/password")
     public ResponseEntity<Map<String, Boolean>> updatePassword(
             @RequestParam String username,
             @RequestBody Map<String, String> request
@@ -52,7 +53,7 @@ public class AdministratorController {
                 .body(administratorService.updatePassword(username, request));
     }
 
-    @DeleteMapping("/update/disable")
+    @DeleteMapping("/disable")
     public ResponseEntity<Map<String, Boolean>> disable(@RequestParam String username) {
         return ResponseEntity
                 .status(HttpStatus.OK)

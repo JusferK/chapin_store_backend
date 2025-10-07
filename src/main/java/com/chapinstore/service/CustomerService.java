@@ -1,6 +1,7 @@
 package com.chapinstore.service;
 
 import com.chapinstore.common.mapper.CustomerMapper;
+import com.chapinstore.dto.authentication.response.AuthenticationResponse;
 import com.chapinstore.dto.customer.creation.CustomerCreationDto;
 import com.chapinstore.dto.customer.creation.CustomerEditDto;
 import com.chapinstore.dto.customer.response.CustomerCreationResponseDto;
@@ -8,6 +9,9 @@ import com.chapinstore.dto.customer.response.CustomerResponseDto;
 import com.chapinstore.entity.Customer;
 import com.chapinstore.model.Pagination;
 import com.chapinstore.repository.CustomerRepository;
+import com.chapinstore.repository.security.RoleRepository;
+import com.chapinstore.service.security.JwtService;
+import com.chapinstore.service.security.RoleService;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,29 +42,42 @@ public class CustomerService {
     private CustomerAddressService customerAddressService;
 
     @Autowired
+    private JwtService jwtService;
+
+    @Autowired
+    private RoleService roleService;
+
+    @Autowired
     private CustomerMapper customerMapper;
 
-    public CustomerCreationResponseDto registerCustomer(CustomerCreationDto customerCreationDto) {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-        customerRepository.findByEmail(customerCreationDto.getEmail())
+    public AuthenticationResponse<CustomerCreationResponseDto> register(CustomerCreationDto request) {
+
+        customerRepository.findByEmail(request.getEmail())
                 .ifPresent(entity -> {
                     throw new EntityExistsException("Este correo ya esta registrado.");
                 });
 
-        Customer customer = customerMapper.toCustomer(customerCreationDto);
-        validatePassword(customer);
+        Customer customer = customerMapper.toCustomer(request);
+
+        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
+        customer.setRole(roleService.CustomerRole("CUSTOMER"));
 
         Customer savedCustomer = customerRepository.save(customer);
-        if (!customerCreationDto.getAddresses().isEmpty())
-            customerAddressService.saveAddress(customerCreationDto.getAddresses(), savedCustomer.getEmail());
+        if (!request.getAddresses().isEmpty())
+            customerAddressService.saveAddress(request.getAddresses(), savedCustomer.getEmail());
 
+        String jwt = jwtService.generate(savedCustomer, generateClaims(savedCustomer));
 
-        CustomerCreationResponseDto response = customerMapper.toCustomerCreationResponseDto(savedCustomer);
-        response.setAddresses(customerCreationDto.getAddresses());
-        return response;
+        CustomerCreationResponseDto dto = customerMapper.toCustomerCreationResponseDto(savedCustomer);
+        dto.setAddresses(request.getAddresses());
+
+        return new AuthenticationResponse<>(jwt, dto);
     }
 
-    public Pagination<CustomerResponseDto> getAllCustomers(Integer page) {
+    public Pagination<CustomerResponseDto> getAll(Integer page) {
 
         Pageable pageable = PageRequest.of(page, pageSize, Sort.Direction.ASC, property);
         Page<Customer> customerPage = customerRepository.findAll(pageable);
@@ -80,7 +98,7 @@ public class CustomerService {
 
     }
 
-    public CustomerResponseDto getCustomer(String email) {
+    public CustomerResponseDto get(String email) {
         Customer find = customerRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("El usuario no fue encontrado."));
 
@@ -89,11 +107,11 @@ public class CustomerService {
                 .toCustomerResponseDto(find);
     }
 
-    public CustomerEditDto patchCustomer(CustomerEditDto customerEditDto) {
+    public CustomerEditDto patch(CustomerEditDto customerEditDto) {
         Customer findCustomer = customerRepository.findByEmail(customerEditDto.getEmail())
                 .orElseThrow(() -> new EntityNotFoundException("Cliente no fue encontrado."));
 
-        patchCustomer(findCustomer, customerEditDto);
+        patch(findCustomer, customerEditDto);
 
         return customerEditDto;
     }
@@ -112,7 +130,7 @@ public class CustomerService {
                 .orElseThrow(() -> new EntityNotFoundException("Cliente no fue encontrado."));
     }
 
-    private void patchCustomer(Customer customer, CustomerEditDto customerEditDto) {
+    private void patch(Customer customer, CustomerEditDto customerEditDto) {
         if (customerEditDto.getName() != null) customer.setName(customerEditDto.getName());
         if (customerEditDto.getPassword() != null) customer.setPassword(customerEditDto.getPassword());
         if (customerEditDto.getLastName() != null) customer.setLastName(customerEditDto.getLastName());
@@ -121,6 +139,12 @@ public class CustomerService {
         customerRepository.save(customer);
     }
 
-    private void validatePassword(Customer customer) {}
+    private Map<String, Object> generateClaims(Customer customer) {
+        return Map.of(
+                "name", customer.getName(),
+                "role", customer.getRole().getName(),
+                "authorities", customer.getAuthorities()
+        );
+    }
 
 }

@@ -28,6 +28,9 @@ swagger:
     path: /swagger-ui.html
 
 application:
+  security:
+    secret: c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUgxUytTYXZYV3d5SVZOQ2tSMkxTYnlRVUJGUEVCRUcyWnNKQ1hqSS9NNGIgY2hhcGluc3RvcmVAZ21haWwuY29t
+    expiration-in-miliseconds: 1800000
   order-request:
     property: status
     page-size: 20
