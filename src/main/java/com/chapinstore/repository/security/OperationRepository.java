@@ -3,4 +3,10 @@ package com.chapinstore.repository.security;
 import com.chapinstore.entity.security.Operation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OperationRepository extends JpaRepository<Operation, Long> {}
+import java.util.List;
+
+public interface OperationRepository extends JpaRepository<Operation, Long> {
+
+    List<Operation> findByPermitAllIsTrue();
+
+}

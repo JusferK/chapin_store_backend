@@ -43,6 +43,10 @@ public class OperationService {
         return operationRepository.findAll();
     }
 
+    public List<Operation> findByPublic() {
+        return operationRepository.findByPermitAllIsTrue();
+    }
+
     public Operation find(Long id) {
         return operationRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No se encontro la operacion"));

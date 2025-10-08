@@ -9,7 +9,6 @@ import com.chapinstore.dto.customer.response.CustomerResponseDto;
 import com.chapinstore.entity.Customer;
 import com.chapinstore.model.Pagination;
 import com.chapinstore.repository.CustomerRepository;
-import com.chapinstore.repository.security.RoleRepository;
 import com.chapinstore.service.security.JwtService;
 import com.chapinstore.service.security.RoleService;
 import jakarta.persistence.EntityExistsException;
@@ -25,7 +24,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class CustomerService {
@@ -148,7 +146,7 @@ public class CustomerService {
 
     private Map<String, Object> generateClaims(Customer customer) {
         return Map.of(
-                "name", customer.getName(),
+                "name", customer.getName() + " " + customer.getLastName(),
                 "role", customer.getRole().getName(),
                 "authorities", customer.getAuthorities()
         );

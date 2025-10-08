@@ -2,7 +2,6 @@ package com.chapinstore.service.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -19,8 +18,7 @@ import java.util.Map;
 @Service
 public class JwtService {
 
-    @Value("${application.security.expiration-in-miliseconds}")
-    public Long EXPIRATION;
+    private static final Long EXPIRATION = (long) (1000 * 60 * 60 * 24);
 
     @Value("${application.security.secret}")
     private String SECRET;

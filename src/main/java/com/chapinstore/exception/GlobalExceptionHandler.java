@@ -4,8 +4,10 @@ import com.chapinstore.exception.throwable.AddressCreationException;
 import com.chapinstore.exception.throwable.InvalidOrderStatusException;
 import com.chapinstore.exception.throwable.LogoutMissingTokenException;
 import com.chapinstore.exception.throwable.PaymentSecurityCompromisedException;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -167,6 +170,23 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(HttpStatus.CONFLICT.value())
+                .body(body);
+    }
+
+    @ExceptionHandler(ExpiredJwtException.class)
+    public ResponseEntity<Map<String, Object>> handleExpiredJwtException(ExpiredJwtException ex, HttpServletRequest request) {
+
+        Map<String, Object> body = Map.of(
+                "backendMessage", ex.getLocalizedMessage(),
+                "url", request.getRequestURI(),
+                "method", request.getMethod(),
+                "message", "Las credenciales han expirado, inicie sesion de nuevo por favor.",
+                "timestamp", LocalDateTime.now().toString()
+        );
+
+
+        return  ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
                 .body(body);
     }
 

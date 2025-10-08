@@ -82,7 +82,7 @@ public class AuthenticationService {
 
         if (user instanceof Customer customer) {
             claims = Map.of(
-                    "name", customer.getName(),
+                    "name", customer.getName() + " " + customer.getLastName(),
                     "role", customer.getRole().getName(),
                     "authorities", customer.getAuthorities()
             );
