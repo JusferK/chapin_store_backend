@@ -67,7 +67,7 @@ public class AdministratorService {
     public Map<String, Boolean> updatePassword(String username, Map<String, String> request) {
 
         String password = request.get("password");
-        if (password == null) throw new IllegalArgumentException("password requerido");
+        if (password == null) throw new IllegalArgumentException("Contraseña requerida.");
 
         Administrator administrator = find(username);
         administrator.setPassword(password);

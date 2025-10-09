@@ -69,6 +69,7 @@ INSERT INTO Module (id, name, base_path, active) values (10, 'role', '/role', tr
 INSERT INTO Module (id, name, base_path, active) values (11, 'operaciones', '/operation', true);
 INSERT INTO Module (id, name, base_path, active) values (12, 'modulos', '/module', true);
 INSERT INTO Module (id, name, base_path, active) values (13, 'permisos', '/permission', true);
+INSERT INTO Module (id, name, base_path, active) values (14, 'menus', '/menu', true);
 
 --------------------------------------------------------------------------------------------------------------------------------  OPERACION ---------------------------------------------------------------------------------
 
@@ -145,6 +146,13 @@ INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active)
 INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (46, 'CREATE_GRANTED_PERMISSIONS', '/new', 'POST', 13, false, true);
 INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (47, 'DELETE_GRANTED_PERMISSION', '/delete', 'DELETE', 13, false, true);
 
+--MENU OPERATION
+
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (48, 'CREATE_MENU', '/new', 'POST', 14, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (49, 'GET_ALL_MENUS', '/get-all', 'GET', 14, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (50, 'GET_MENUS_BY_ROL', '/get-by-role', 'GET', 14, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (51, 'PATCH_MENU', '/patch', 'PATCH', 14, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (52, 'DELETE_MENU', '/delete', 'DELETE', 14, false, true);
 
 --------------------------------------------------------------------------------------------------------------------------------  ROLES ---------------------------------------------------------------------------------
 
@@ -218,57 +226,148 @@ INSERT INTO granted_permission (id, role_id, operation_id) values (36, 1, 45);
 INSERT INTO granted_permission (id, role_id, operation_id) values (37, 1, 46);
 INSERT INTO granted_permission (id, role_id, operation_id) values (38, 1, 47);
 
+--MENU OPERATION
+
+INSERT INTO granted_permission (id, role_id, operation_id) values (39, 1, 48);
+INSERT INTO granted_permission (id, role_id, operation_id) values (40, 1, 49);
+INSERT INTO granted_permission (id, role_id, operation_id) values (41, 1, 50);
+INSERT INTO granted_permission (id, role_id, operation_id) values (42, 1, 51);
+INSERT INTO granted_permission (id, role_id, operation_id) values (43, 1, 52);
+
+
 -------------------------------------------------------------------------------------------- MANAGER PERMISSIONS
 
 -- /PRODUCTOS
-INSERT INTO granted_permission (id, role_id, operation_id) values (39, 2, 1);
-INSERT INTO granted_permission (id, role_id, operation_id) values (40, 2, 2);
-INSERT INTO granted_permission (id, role_id, operation_id) values (41, 2, 3);
-INSERT INTO granted_permission (id, role_id, operation_id) values (42, 2, 4);
-INSERT INTO granted_permission (id, role_id, operation_id) values (43, 2, 5);
+INSERT INTO granted_permission (id, role_id, operation_id) values (44, 2, 1);
+INSERT INTO granted_permission (id, role_id, operation_id) values (45, 2, 2);
+INSERT INTO granted_permission (id, role_id, operation_id) values (46, 2, 3);
+INSERT INTO granted_permission (id, role_id, operation_id) values (47, 2, 4);
+INSERT INTO granted_permission (id, role_id, operation_id) values (48, 2, 5);
 
 -- /ORDENES
-INSERT INTO granted_permission (id, role_id, operation_id) values (44, 2, 10);
-INSERT INTO granted_permission (id, role_id, operation_id) values (45, 2, 11);
-INSERT INTO granted_permission (id, role_id, operation_id) values (46, 2, 14);
-INSERT INTO granted_permission (id, role_id, operation_id) values (47, 2, 15);
+INSERT INTO granted_permission (id, role_id, operation_id) values (49, 2, 10);
+INSERT INTO granted_permission (id, role_id, operation_id) values (50, 2, 11);
+INSERT INTO granted_permission (id, role_id, operation_id) values (51, 2, 14);
+INSERT INTO granted_permission (id, role_id, operation_id) values (52, 2, 15);
 
 -- /DETALLE
-INSERT INTO granted_permission (id, role_id, operation_id) values (48, 2, 16);
+INSERT INTO granted_permission (id, role_id, operation_id) values (53, 2, 16);
 
 -- /CLIENTE
-INSERT INTO granted_permission (id, role_id, operation_id) values (49, 2, 17);
-INSERT INTO granted_permission (id, role_id, operation_id) values (50, 2, 18);
-INSERT INTO granted_permission (id, role_id, operation_id) values (51, 2, 21);
+INSERT INTO granted_permission (id, role_id, operation_id) values (54, 2, 17);
+INSERT INTO granted_permission (id, role_id, operation_id) values (55, 2, 18);
+INSERT INTO granted_permission (id, role_id, operation_id) values (56, 2, 21);
 
 -- /CATEGORIAS
-INSERT INTO granted_permission (id, role_id, operation_id) values (52, 2, 25);
-INSERT INTO granted_permission (id, role_id, operation_id) values (53, 2, 26);
-INSERT INTO granted_permission (id, role_id, operation_id) values (54, 2, 27);
+INSERT INTO granted_permission (id, role_id, operation_id) values (57, 2, 25);
+INSERT INTO granted_permission (id, role_id, operation_id) values (58, 2, 26);
+INSERT INTO granted_permission (id, role_id, operation_id) values (59, 2, 27);
 
 -- /AUTENTICACION
-INSERT INTO granted_permission (id, role_id, operation_id) values (55, 2, 34);
+INSERT INTO granted_permission (id, role_id, operation_id) values (60, 2, 34);
+
+-- /MENU
+
+INSERT INTO granted_permission (id, role_id, operation_id) values (61, 2, 50);
 
 -------------------------------------------------------------------------------------------- CUSTOMER
 
 -- /PAGOS
-INSERT INTO granted_permission (id, role_id, operation_id) values (56, 3, 7);
-INSERT INTO granted_permission (id, role_id, operation_id) values (57, 3, 8);
-INSERT INTO granted_permission (id, role_id, operation_id) values (58, 3, 9);
+INSERT INTO granted_permission (id, role_id, operation_id) values (62, 3, 7);
+INSERT INTO granted_permission (id, role_id, operation_id) values (63, 3, 8);
+INSERT INTO granted_permission (id, role_id, operation_id) values (64, 3, 9);
 
 -- /ORDENES
-INSERT INTO granted_permission (id, role_id, operation_id) values (59, 3, 11);
-INSERT INTO granted_permission (id, role_id, operation_id) values (60, 3, 12);
-INSERT INTO granted_permission (id, role_id, operation_id) values (61, 3, 13);
-INSERT INTO granted_permission (id, role_id, operation_id) values (62, 3, 14);
-INSERT INTO granted_permission (id, role_id, operation_id) values (63, 3, 15);
+INSERT INTO granted_permission (id, role_id, operation_id) values (65, 3, 11);
+INSERT INTO granted_permission (id, role_id, operation_id) values (66, 3, 12);
+INSERT INTO granted_permission (id, role_id, operation_id) values (67, 3, 13);
+INSERT INTO granted_permission (id, role_id, operation_id) values (68, 3, 14);
+INSERT INTO granted_permission (id, role_id, operation_id) values (69, 3, 15);
 
 -- /DETAIL
-INSERT INTO granted_permission (id, role_id, operation_id) values (64, 3, 16);
+INSERT INTO granted_permission (id, role_id, operation_id) values (70, 3, 16);
 
 -- /DIRECCIONES
-INSERT INTO granted_permission (id, role_id, operation_id) values (65, 3, 22);
-INSERT INTO granted_permission (id, role_id, operation_id) values (66, 3, 23);
+INSERT INTO granted_permission (id, role_id, operation_id) values (71, 3, 22);
+INSERT INTO granted_permission (id, role_id, operation_id) values (72, 3, 23);
 
 -- /AUTENTICACION
-INSERT INTO granted_permission (id, role_id, operation_id) values (67, 3, 34);
+INSERT INTO granted_permission (id, role_id, operation_id) values (73, 3, 34);
+
+--------------------------------------------------------------------------------------------------------------------------------  MENUS ---------------------------------------------------------------------
+
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (1, 'Productos', 'pi pi-shop', null, '/product', true);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (2, 'Agregar producto', 'pi pi-plus', 1, '/add', false);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (3, 'Modificar producto', 'pi pi-pencil', 1, '/edit', false);
+
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (4, 'Permisos', 'pi pi-shield', null, '/permission', true);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (5, 'Eliminar', 'pi pi-trash', 4, '/', false);
+
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (6, 'Modulos', 'pi pi-list', null, '/modules', true);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (7, 'Agregar modulo', 'pi pi-plus', 6, '/add', false);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (8, 'Editar modulo', 'pi pi-list', 6, '/edit', false);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (9, 'Deshabilitar modulo', 'pi pi-power-off', 6, '/disable', false);
+
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (10, 'Operaciones', 'pi pi-warehouse', null, '/operations', true);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (11, 'Agregar operacion', 'pi pi-plus', 10, '/add', false);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (12, 'Editar operacion', 'pi pi-list', 10, '/edit', false);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (13, 'Deshabilitar operacion', 'pi pi-power-off', 10, '/disable', false);
+
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (14, 'Administradores', 'pi pi-users', null, '/administrator', true);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (15, 'Agregar administrador', 'pi pi-user-plus', 14, '/add', false);
+
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (16, 'Ordenes', 'pi pi-cart-plus', null, '/orders', true);
+
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (17, 'Usuarios', 'pi pi-user', null, '/users', true);
+
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (18, 'Categorias', 'pi pi-bars', null, '/categories', true);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (19, 'Agregar categoria', 'pi pi-plus', 18, '/add', false);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (20, 'Editar categoria', 'pi pi-pencil', 18, '/edit', false);
+
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (21, 'Roles', 'pi pi-id-card', null, '/roles', true);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (22, 'Agregar rol', 'pi pi-plus', 21, '/add', false);
+
+--------------------------------------------------------------------------------------------------------------------------------  Role : Menu ---------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------- ADMINISTRATOR MENU PERMISSIONS
+
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (1, 1, 1);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (2, 2, 1);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (3, 3, 1);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (4, 4, 1);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (5, 5, 1);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (6, 6, 1);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (7, 7, 1);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (8, 8, 1);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (9, 9, 1);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (10, 10, 1);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (11, 11, 1);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (12, 12, 1);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (13, 13, 1);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (14, 14, 1);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (15, 15, 1);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (16, 16, 1);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (17, 17, 1);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (18, 18, 1);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (19, 19, 1);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (20, 20, 1);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (21, 21, 1);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (22, 22, 1);
+
+-------------------------------------------------------------------------------------------- MANAGER MENU PERMISSIONS
+
+-- INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (23, 1, 1);
+-- INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (24, 1, 1);
+-- INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (25, 1, 1);
+-- INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (26, 1, 1);
+-- INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (27, 1, 1);
+-- INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (28, 1, 1);
+-- INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (29, 1, 1);
+-- INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (30, 1, 1);
+-- INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (31, 1, 1);
+-- INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (32, 1, 1);
+
+--------------------------------------------------------------------------------------------------------------------------------  ADMIN ---------------------------------------------------------------------
+
+
+INSERT INTO Administrator (username, password, is_active, role_id) values ('admin', '$2a$10$uGoUPehLPp9ozpDUqTMCXOt0nbGw3qFVIGXAndJ2BeoO0Rtua9IDW', true,1);

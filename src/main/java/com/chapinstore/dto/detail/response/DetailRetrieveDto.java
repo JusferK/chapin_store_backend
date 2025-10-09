@@ -8,6 +8,7 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DetailRetrieveDto {
 
+    private Long detailId;
     private Double subtotal;
     private Integer quantity;
     private Long productId;
