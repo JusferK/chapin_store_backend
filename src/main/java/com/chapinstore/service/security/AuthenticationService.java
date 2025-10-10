@@ -60,6 +60,14 @@ public class AuthenticationService {
         return Map.of("logout", Boolean.TRUE);
     }
 
+    public Map<String, Boolean> validate(HttpServletRequest request) {
+
+        String token = jwtService.extractJwtFromRequest(request);
+        jwtService.extractUsername(token);
+
+        return Map.of("valid", true);
+    }
+
     private AuthenticationResponse<?> findEntity(String username) {
 
         Customer findCustomer = customerService.findNullable(username);

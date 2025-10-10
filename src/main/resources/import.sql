@@ -124,6 +124,7 @@ INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active)
 -- AUTHENTICATE
 INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (33, 'LOGIN', '/login', 'POST', 9, true, true);
 INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (34, 'LOGOUT', '/logout', 'POST', 9, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (53, 'VALIDATE', '/validate', 'GET', 9, false, true);
 
 -- ROLE
 INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (35, 'CREATE_ROLE', '/new', 'POST', 10, false, true);
@@ -204,6 +205,7 @@ INSERT INTO granted_permission (id, role_id, operation_id) values (24, 1, 32);
 
 -- /AUTENTICACION
 INSERT INTO granted_permission (id, role_id, operation_id) values (25, 1, 34);
+INSERT INTO granted_permission (id, role_id, operation_id) values (74, 1, 53);
 
 -- /ROLE
 INSERT INTO granted_permission (id, role_id, operation_id) values (26, 1, 35);
@@ -239,7 +241,6 @@ INSERT INTO granted_permission (id, role_id, operation_id) values (43, 1, 52);
 
 -- /PRODUCTOS
 INSERT INTO granted_permission (id, role_id, operation_id) values (44, 2, 1);
-INSERT INTO granted_permission (id, role_id, operation_id) values (45, 2, 2);
 INSERT INTO granted_permission (id, role_id, operation_id) values (46, 2, 3);
 INSERT INTO granted_permission (id, role_id, operation_id) values (47, 2, 4);
 INSERT INTO granted_permission (id, role_id, operation_id) values (48, 2, 5);
@@ -297,35 +298,37 @@ INSERT INTO granted_permission (id, role_id, operation_id) values (73, 3, 34);
 --------------------------------------------------------------------------------------------------------------------------------  MENUS ---------------------------------------------------------------------
 
 INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (1, 'Productos', 'pi pi-shop', null, '/product', true);
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (2, 'Agregar producto', 'pi pi-plus', 1, '/add', false);
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (3, 'Modificar producto', 'pi pi-pencil', 1, '/edit', false);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (2, 'Agregar producto', 'pi pi-plus', 1, '/product/add', false);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (3, 'Modificar producto', 'pi pi-pencil', 1, '/product/edit', false);
 
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (4, 'Permisos', 'pi pi-shield', null, '/permission', true);
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (5, 'Eliminar', 'pi pi-trash', 4, '/', false);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (4, 'Seguridad', 'pi pi-shield', null, '/security', true);
 
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (6, 'Modulos', 'pi pi-list', null, '/modules', true);
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (7, 'Agregar modulo', 'pi pi-plus', 6, '/add', false);
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (8, 'Editar modulo', 'pi pi-list', 6, '/edit', false);
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (9, 'Deshabilitar modulo', 'pi pi-power-off', 6, '/disable', false);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (5, 'Permisos', 'pi pi-shield', 4, '/security/permission', false);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (6, 'Eliminar', 'pi pi-trash', 5, '/security/permission/delete', false);
 
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (10, 'Operaciones', 'pi pi-warehouse', null, '/operations', true);
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (11, 'Agregar operacion', 'pi pi-plus', 10, '/add', false);
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (12, 'Editar operacion', 'pi pi-list', 10, '/edit', false);
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (13, 'Deshabilitar operacion', 'pi pi-power-off', 10, '/disable', false);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (7, 'Modulos', 'pi pi-list', 4, '/security/modules', false);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (8, 'Agregar modulo', 'pi pi-plus', 7, '/security/modules/add', false);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (9, 'Editar modulo', 'pi pi-pencil', 7, '/security/modules/edit', false);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (10, 'Deshabilitar modulo', 'pi pi-power-off', 7, '/security/modules/disable', false);
 
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (14, 'Administradores', 'pi pi-users', null, '/administrator', true);
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (15, 'Agregar administrador', 'pi pi-user-plus', 14, '/add', false);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (11, 'Operaciones', 'pi pi-warehouse', 4, '/security/operations', false);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (12, 'Agregar operacion', 'pi pi-plus', 11, '/security/operations/add', false);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (13, 'Editar operacion', 'pi pi-pencil', 11, '/security/operations/edit', false);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (14, 'Deshabilitar operacion', 'pi pi-power-off', 11, '/security/operations/disable', false);
 
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (16, 'Ordenes', 'pi pi-cart-plus', null, '/orders', true);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (15, 'Administradores', 'pi pi-users', null, '/administrator', true);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (16, 'Agregar administrador', 'pi pi-user-plus', 15, '/administrator/add', false);
 
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (17, 'Usuarios', 'pi pi-user', null, '/users', true);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (17, 'Ordenes', 'pi pi-cart-plus', null, '/orders', true);
 
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (18, 'Categorias', 'pi pi-bars', null, '/categories', true);
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (19, 'Agregar categoria', 'pi pi-plus', 18, '/add', false);
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (20, 'Editar categoria', 'pi pi-pencil', 18, '/edit', false);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (18, 'Usuarios', 'pi pi-user', null, '/users', true);
 
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (21, 'Roles', 'pi pi-id-card', null, '/roles', true);
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (22, 'Agregar rol', 'pi pi-plus', 21, '/add', false);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (19, 'Categorias', 'pi pi-bars', null, '/categories', true);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (20, 'Agregar categoria', 'pi pi-plus', 19, '/categories/add', false);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (21, 'Editar categoria', 'pi pi-pencil', 19, '/categories/edit', false);
+
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (22, 'Roles', 'pi pi-id-card', 4, '/security/roles', false);
+INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (23, 'Agregar rol', 'pi pi-plus', 22, '/security/roles/add', false);
 
 --------------------------------------------------------------------------------------------------------------------------------  Role : Menu ---------------------------------------------------------------------
 
@@ -356,16 +359,12 @@ INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (22, 22, 1);
 
 -------------------------------------------------------------------------------------------- MANAGER MENU PERMISSIONS
 
--- INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (23, 1, 1);
--- INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (24, 1, 1);
--- INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (25, 1, 1);
--- INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (26, 1, 1);
--- INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (27, 1, 1);
--- INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (28, 1, 1);
--- INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (29, 1, 1);
--- INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (30, 1, 1);
--- INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (31, 1, 1);
--- INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (32, 1, 1);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (23, 1, 2);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (24, 17, 2);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (25, 18, 2);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (26, 19, 2);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (27, 20, 2);
+INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (28, 21, 2);
 
 --------------------------------------------------------------------------------------------------------------------------------  ADMIN ---------------------------------------------------------------------
 
