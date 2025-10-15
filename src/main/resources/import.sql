@@ -1,58 +1,58 @@
 --------------------------------------------------------------------------------------------------------------------------------  CATEGORIAS ---------------------------------------------------------------------
 
---INSERT INTO Category (category_id, name, description) VALUES (1, 'Electrónicos', 'Gadgets, dispositivos multiuso, entre otros.');
---INSERT INTO Category (category_id, name, description) VALUES (2, 'Ropa', 'Prendas de vestir para hombre, mujer y niños.');
---INSERT INTO Category (category_id, name, description) VALUES (3, 'Hogar', 'Artículos para el hogar y la decoración.');
---INSERT INTO Category (category_id, name, description) VALUES (4, 'Deportes', 'Equipos, accesorios y ropa deportiva.');
---INSERT INTO Category (category_id, name, description) VALUES (5, 'Juguetes', 'Juguetes y juegos educativos para todas las edades.');
---INSERT INTO Category (category_id, name, description) VALUES (6, 'Libros', 'Literatura, textos académicos y material de consulta.');
---INSERT INTO Category (category_id, name, description) VALUES (7, 'Belleza', 'Cosméticos, perfumes y productos para el cuidado personal.');
---INSERT INTO Category (category_id, name, description) VALUES (8, 'Mascotas', 'Accesorios, alimentos y juguetes para mascotas.');
---INSERT INTO Category (category_id, name, description) VALUES (9, 'Automotriz', 'Repuestos, herramientas y accesorios para vehículos.');
---INSERT INTO Category (category_id, name, description) VALUES (10, 'Tecnología', 'Software, servicios en la nube y accesorios digitales.');
+INSERT INTO Category (name, description) VALUES ('Electrónicos', 'Gadgets, dispositivos multiuso, entre otros.');
+INSERT INTO Category (name, description) VALUES ('Ropa', 'Prendas de vestir para hombre, mujer y niños.');
+INSERT INTO Category (name, description) VALUES ('Hogar', 'Artículos para el hogar y la decoración.');
+INSERT INTO Category (name, description) VALUES ('Deportes', 'Equipos, accesorios y ropa deportiva.');
+INSERT INTO Category (name, description) VALUES ('Juguetes', 'Juguetes y juegos educativos para todas las edades.');
+INSERT INTO Category (name, description) VALUES ('Libros', 'Literatura, textos académicos y material de consulta.');
+INSERT INTO Category (name, description) VALUES ('Belleza', 'Cosméticos, perfumes y productos para el cuidado personal.');
+INSERT INTO Category (name, description) VALUES ('Mascotas', 'Accesorios, alimentos y juguetes para mascotas.');
+INSERT INTO Category (name, description) VALUES ('Automotriz', 'Repuestos, herramientas y accesorios para vehículos.');
+INSERT INTO Category (name, description) VALUES ('Tecnología', 'Software, servicios en la nube y accesorios digitales.');
 
 
 --------------------------------------------------------------------------------------------------------------------------------  PRODUCTOS ---------------------------------------------------------------------
 
---INSERT INTO Product (product_id, name, description, price, stock, image, category_id) VALUES (1, 'Smartphone Galaxy X', 'Teléfono inteligente con cámara de 108MP y batería de larga duración', 750, 50, 'https://example.com/images/galaxyx.jpg', 1);
+INSERT INTO Product (name, description, price, stock, image, category_id) VALUES ('Smartphone Galaxy X', 'Teléfono inteligente con cámara de 108MP y batería de larga duración', 750, 50, 'https://m.media-amazon.com/images/I/61pMFRAs+3L._AC_SX679_.jpg', 1);
 
---INSERT INTO Product (product_id, name, description, price, stock, image, category_id) VALUES (2, 'Playera de The boys', 'Playera de verano con estampado de The Boys en diferentes tamaños', 20, 120, 'https://srv.latostadora.com/image/the-boys-club--id:cdd60890-3b3f-4b4e-9b16-03209b14dc47;s:H_A1;b:f2f2f2;w:520;f:f;i:135623135623201709261.jpg', 2);
+INSERT INTO Product (name, description, price, stock, image, category_id) VALUES  ('Playera de The boys', 'Playera de verano con estampado de The Boys en diferentes tamaños', 20, 120, 'https://srv.latostadora.com/image/the-boys-club--id:cdd60890-3b3f-4b4e-9b16-03209b14dc47;s:H_A1;b:f2f2f2;w:520;f:f;i:135623135623201709261.jpg', 2);
 
---INSERT INTO Product (product_id, name, description, price, stock, image, category_id) VALUES (3, 'Sofá Reclinable', 'Sofá de tres plazas en tela gris, reclinable con portavasos', 480, 15, 'https://example.com/images/sofa.jpg', 3);
+INSERT INTO Product (name, description, price, stock, image, category_id) VALUES ( 'Sofá Reclinable', 'Sofá de tres plazas en tela gris, reclinable con portavasos', 480, 15, 'https://imgs.search.brave.com/bxstF8d22_vTPE-Hfj-TzmHHxiXrQCkq_H8pZONjJfg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/cm9zZW4uY2wvbWVk/aWEvY2F0YWxvZy9w/cm9kdWN0LzEvMy8x/MzAxNzgwMC01bS5q/cGc_cXVhbGl0eT0x/MDAmYmctY29sb3I9/MjU1LDI1NSwyNTUm/Zml0PWJvdW5kcyZo/ZWlnaHQ9NDAwJndp/ZHRoPTQwMCZjYW52/YXM9NDAwOjQwMA', 3);
 
---INSERT INTO Product (product_id, name, description, price, stock, image, category_id) VALUES (4, 'Balón de Fútbol Adidas', 'Balón oficial de la liga con diseño resistente y duradero', 35, 200, 'https://example.com/images/balon.jpg', 4);
+INSERT INTO Product (name, description, price, stock, image, category_id) VALUES ( 'Balón de Fútbol Adidas', 'Balón oficial de la liga con diseño resistente y duradero', 35, 200, 'https://imgs.search.brave.com/ojfmcZhVep4OcIlrtXjj4VSzL27ZSWU04Unx1WJmzyY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9odHRw/Mi5tbHN0YXRpYy5j/b20vRF9RX05QXzJY/XzY5Nzc4Ni1NTFY4/NjA1MjcyODU5OV8w/NjIwMjUtVi53ZWJw', 4);
 
---INSERT INTO Product (product_id, name, description, price, stock, image, category_id) VALUES (5, 'Lego Star Wars', 'Set de construcción con 500 piezas de la saga Star Wars', 90, 60, 'https://example.com/images/lego.jpg', 5);
+INSERT INTO Product (name, description, price, stock, image, category_id) VALUES ( 'Lego Star Wars', 'Set de construcción con 500 piezas de la saga Star Wars', 90, 60, 'https://imgs.search.brave.com/zGHm16Ab1WGYXpQCdWFbh9MqyDtzUtQbtu4wOLyhdD4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudGhjZG4uY29t/L2ltYWdlcy94c21h/bGwvb3JpZ2luYWwv/L3Byb2R1Y3RpbWcv/b3JpZ2luYWwvMTM2/MzQyOTctMjAyNDkz/MDg2NTU3NzM4NC5q/cGc', 5);
 
---INSERT INTO Product (product_id, name, description, price, stock, image, category_id) VALUES (6, 'Libro: Cien Años de Soledad', 'Edición especial con portada dura del clásico de Gabriel García Márquez', 18, 85, 'https://example.com/images/cienaños.jpg', 6);
+INSERT INTO Product (name, description, price, stock, image, category_id) VALUES ( 'Libro: Cien Años de Soledad', 'Edición especial con portada dura del clásico de Gabriel García Márquez', 18, 85, 'https://imgs.search.brave.com/d3DsoR3X6oZ3EKkuPC1TllbktmvbLPDh1kgkN9XLiOw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuY2RuMy5idXNj/YWxpYnJlLmNvbS9m/aXQtaW4vMzYweDM2/MC8yZC8xNi8yZDE2/MWIzMjEyZDMxZWVh/YTE2NDJlZTlkMmE1/MDMzYi5qcGc', 6);
 
---INSERT INTO Product (product_id, name, description, price, stock, image, category_id) VALUES (7, 'Perfume Chanel No. 5', 'Perfume clásico de mujer en presentación de 100ml', 110, 40, 'https://example.com/images/chanel.jpg', 7);
+INSERT INTO Product (name, description, price, stock, image, category_id) VALUES ( 'Perfume Chanel No. 5', 'Perfume clásico de mujer en presentación de 100ml', 110, 40, 'https://imgs.search.brave.com/h65-5jaNWhBDugV5SosZCuWjERuFiPn8d7QxkmAwdbE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/Y2hhbmVsLmNvbS9p/bWFnZXMvdF9vbmUv/L3dfMC41MSxoXzAu/NTEsY19jcm9wL3Ff/YXV0bzpnb29kLGZf/YXV0byxmbF9sb3Nz/eSxkcHJfMS4xL3df/MTkyMC8vbi01LWxp/bWl0ZWQtZWRpdGlv/bi1lYXUtZGUtcGFy/ZnVtLXNwcmF5LTMt/NGZsLW96LS1wYWNr/c2hvdC1kZWZhdWx0/LTEyNTQ3Ny05NTQ5/NTM0ODU1MTk4Lmpw/Zw', 7);
 
---INSERT INTO Product (product_id, name, description, price, stock, image, category_id) VALUES (8, 'Collar para Perros', 'Collar ajustable de cuero con hebilla metálica', 15, 150, 'https://example.com/images/collar.jpg', 8);
+INSERT INTO Product (name, description, price, stock, image, category_id) VALUES ( 'Collar para Perros', 'Collar ajustable de cuero con hebilla metálica', 15, 150, 'https://imgs.search.brave.com/DZUQ7qVHWL9D0qTujjFPIdnF4Ke1EwvyMvnrCjiLBZQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMtbmEuc3NsLWlt/YWdlcy1hbWF6b24u/Y29tL2ltYWdlcy9J/LzcxTndtcWRRTDlM/LmpwZw', 8);
 
---INSERT INTO Product (product_id, name, description, price, stock, image, category_id) VALUES (9, 'Llantas Michelin 15"', 'Juego de 4 llantas para automóvil de uso urbano', 320, 25, 'https://example.com/images/llantas.jpg', 9);
+INSERT INTO Product (name, description, price, stock, image, category_id) VALUES ( 'Llantas Michelin 15"', 'Juego de 4 llantas para automóvil de uso urbano', 320, 25, 'https://imgs.search.brave.com/16YSoojGISMgp0VT9jEr8BomnyYwfOdTsD0LIyPZtNQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9odHRw/Mi5tbHN0YXRpYy5j/b20vRF9RX05QXzJY/Xzg1NTY5My1NTFU3/NTEwMzg3NDY1NF8w/MzIwMjQtVi53ZWJw', 9);
 
---INSERT INTO Product (product_id, name, description, price, stock, image, category_id) VALUES (10, 'Teclado Mecánico RGB', 'Teclado gamer con luces RGB y switches azules', 65, 70, 'https://example.com/images/teclado.jpg', 10);
+INSERT INTO Product (name, description, price, stock, image, category_id) VALUES ( 'Teclado Mecánico RGB', 'Teclado gamer con luces RGB y switches azules', 65, 70, 'https://m.media-amazon.com/images/I/61Tn5a431IL._AC_SX679_.jpg', 10);
 
---INSERT INTO Product (product_id, name, description, price, stock, image, category_id) VALUES (11, 'Laptop Lenovo ThinkPad', 'Laptop de 14" con procesador i7 y 16GB RAM', 950, 30, 'https://example.com/images/laptop.jpg', 1);
+INSERT INTO Product (name, description, price, stock, image, category_id) VALUES ('Laptop Lenovo ThinkPad', 'Laptop de 14" con procesador i7 y 16GB RAM', 950, 30, 'https://cdn.mos.cms.futurecdn.net/5zZbN9eDoohNs4poBygeh4.png', 1);
 
---INSERT INTO Product (product_id, name, description, price, stock, image, category_id) VALUES (12, 'Jeans Levis 501', 'Jeans azul clásico para hombre, todas las tallas', 45, 200, 'https://example.com/images/jeans.jpg', 2);
+INSERT INTO Product (name, description, price, stock, image, category_id) VALUES ('Jeans Levis 501', 'Jeans azul clásico para hombre, todas las tallas', 45, 200, 'https://lsco.scene7.com/is/image/lsco/A19590033-front-pdp?fmt=webp&qlt=70&resMode=sharp2&fit=crop,1&op_usm=0.6,0.6,8&wid=880&hei=880', 2);
 
---INSERT INTO Product (product_id, name, description, price, stock, image, category_id) VALUES (13, 'Mesa de Centro Moderna', 'Mesa de madera con acabado minimalista', 120, 40, 'https://example.com/images/mesa.jpg', 3);
+INSERT INTO Product (name, description, price, stock, image, category_id) VALUES ('Mesa de Centro Moderna', 'Mesa de madera con acabado minimalista', 120, 40, 'https://imgs.search.brave.com/3llCukbIvcoS32giUbQg1epmMC8c6WxBxAJ6Bjq7MOA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9odHRw/Mi5tbHN0YXRpYy5j/b20vRF9RX05QXzJY/Xzk4MzI2My1NTE05/MDkyMzk4MzI3NF8w/ODIwMjUtRS1tZXNh/LWRlLWNlbnRyby1t/b2Rlcm5hLWRlLW1h/ZGVyYS1wYXJhLXNh/bGEtbWluaW1hbGlz/dGEud2VicA', 3);
 
---INSERT INTO Product (product_id, name, description, price, stock, image, category_id) VALUES (14, 'Raqueta de Tenis Wilson', 'Raqueta profesional de grafito con funda', 130, 60, 'https://example.com/images/raqueta.jpg', 4);
+INSERT INTO Product (name, description, price, stock, image, category_id) VALUES ('Raqueta de Tenis Wilson', 'Raqueta profesional de grafito con funda', 130, 60, 'https://imgs.search.brave.com/U2Ont4ma7OJcWVMp2fxwL0LxTvexcbtLbDaIicYEgXI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9odHRw/Mi5tbHN0YXRpYy5j/b20vRF9RX05QXzJY/Xzk1NzA1Mi1NTEM3/OTYzNzQxMjc4Nl8x/MDIwMjQtRS1yYXF1/ZXRhLWRlLXRlbmlz/LXdpbHNvbi11bHRy/YS1wb3dlci1yeHQt/MTA1LXJlY3JlYXRp/dm8ud2VicA', 4);
 
---INSERT INTO Product (product_id, name, description, price, stock, image, category_id) VALUES (15, 'Muñeca Barbie', 'Barbie fashionista edición especial 2025', 30, 150, 'https://example.com/images/barbie.jpg', 5);
+INSERT INTO Product (name, description, price, stock, image, category_id) VALUES ('Muñeca Barbie', 'Barbie fashionista edición especial 2025', 30, 150, 'https://imgs.search.brave.com/svAPIwUFaf7RJaVRmfPCE9weogu3wSXetLBrY18wl6U/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9odHRw/Mi5tbHN0YXRpYy5j/b20vRF9RX05QXzJY/XzY2NDkyOS1NTEE4/MTg1Mjg0ODQwOF8w/MTIwMjUtRS53ZWJw', 5);
 
---INSERT INTO Product (product_id, name, description, price, stock, image, category_id) VALUES (16, 'Libro: El Señor de los Anillos', 'Trilogía completa en un solo tomo ilustrado', 50, 90, 'https://example.com/images/lotr.jpg', 6);
+INSERT INTO Product (name, description, price, stock, image, category_id) VALUES ('Libro: El Señor de los Anillos', 'Trilogía completa en un solo tomo ilustrado', 50, 90, 'https://imgs.search.brave.com/QoG7OJEMzMKQgKGc18rpXLkV7kWkcb9qaIXRF-MqSi0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9odHRw/Mi5tbHN0YXRpYy5j/b20vRF9RX05QXzJY/Xzg5ODIyOC1NTE01/MDIxMzU2NzYxOV8w/NjIwMjItVi1saWJy/by1lbC1zZW5vci1k/ZS1sb3MtYW5pbGxv/cy1hbGFuLWxlZS1v/cmlnaW5hbC53ZWJw', 6);
 
---INSERT INTO Product (product_id, name, description, price, stock, image, category_id) VALUES (17, 'Labial MAC Mate', 'Labial de larga duración color rojo pasión', 25, 110, 'https://example.com/images/labial.jpg', 7);
+INSERT INTO Product (name, description, price, stock, image, category_id) VALUES ('Labial MAC Mate', 'Labial de larga duración color rojo pasión', 25, 110, 'https://imgs.search.brave.com/Gn_3mJUnR6p5VEbAC6z5_8pUhaEGV8P2A_DudoWPZ0w/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9odHRw/Mi5tbHN0YXRpYy5j/b20vRF9RX05QXzJY/Xzg3OTUwOS1NTFU3/NDg5OTM0MTY4MF8w/MzIwMjQtRS53ZWJw', 7);
 
---INSERT INTO Product (product_id, name, description, price, stock, image, category_id) VALUES (18, 'Cama para Gatos', 'Cama acolchada en forma de iglú para gatos pequeños', 35, 95, 'https://example.com/images/camagato.jpg', 8);
+INSERT INTO Product (name, description, price, stock, image, category_id) VALUES ('Cama para Gatos', 'Cama acolchada en forma de iglú para gatos pequeños', 35, 95, 'https://imgs.search.brave.com/oQ51bj5AxfiG7OCRA1bSoB0-MnyFC8Q7QchXnzOAq2o/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9raXpl/dGFzdG9yZS5jb20v/Y2RuL3Nob3AvZmls/ZXMvMl9iNDUyZWQ0/Ni1hYWQ2LTRiODIt/OTA4NS0xNTcyZTJh/NTc2NmUucG5nP3Y9/MTcyMjY0ODc1MiZ3/aWR0aD0xMDgw', 8);
 
---INSERT INTO Product (product_id, name, description, price, stock, image, category_id) VALUES (19, 'Aceite de Motor Castrol', 'Aceite sintético para motor de 5L', 42, 80, 'https://example.com/images/aceite.jpg', 9);
+INSERT INTO Product (name, description, price, stock, image, category_id) VALUES ('Aceite de Motor Castrol', 'Aceite sintético para motor de 5L', 42, 80, 'https://imgs.search.brave.com/CfDn3p9kTdfF3qOfJe3j4WVGc3_MKkQIpDXwtMLPlAE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/bW90b3JlY2FtYmlv/c3ZmZXJyZXIuZXMv/MTI1NzE3LWhvbWVf/ZGVmYXVsdC9hY2Vp/dGUtY2FzdHJvbC1t/b3RvLXBvd2VyLTEt/c2Nvb3Rlci00dC01/dzQwLTEtbGl0cm8u/anBn', 9);
 
---INSERT INTO Product (product_id, name, description, price, stock, image, category_id) VALUES (20, 'Mouse Inalámbrico Logitech', 'Mouse ergonómico con batería recargable y conexión bluetooth', 28, 130, 'https://example.com/images/mouse.jpg', 10);
+INSERT INTO Product (name, description, price, stock, image, category_id) VALUES ( 'Mouse Inalámbrico Logitech', 'Mouse ergonómico con batería recargable y conexión bluetooth', 28, 130, 'https://imgs.search.brave.com/cs7sQi0gI56XkcKFbsrNZzsXxkJpYRetZNf4TdZQpls/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/b2ZmaWNlZGVwb3Qu/Y29tLm14L21lZGlh/cy8xMDAwMDU2MzQu/anBnLTMwMGZ0dz9j/b250ZXh0PWJXRnpk/R1Z5ZkhKdmIzUjhN/ak0wT1RsOGFXMWha/MlV2YW5CbFozeGhS/R00wVERKbk0wNTVP/SGhOUkVGM1RsUkZN/VTE2VVRCT2Vtc3lU/bWsxY1dOSFkzdzBZ/Mkl4WVRBMk1XVmpZ/akV6TkRJNFlUVTJP/VE13WVRRMU16YzBa/amsyTWpNNVlXUmlO/R05qTm1Zd1lqWTRO/R1ExWkRSbU1qQmlO/R1EwTmpVMk5tTmg', 10);
 
 --------------------------------------------------------------------------------------------------------------------------------  MODULO ---------------------------------------------------------------------------------
 
@@ -299,7 +299,6 @@ INSERT INTO granted_permission (id, role_id, operation_id) values (73, 3, 34);
 
 INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (1, 'Productos', 'pi pi-shop', null, '/product', true);
 INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (2, 'Agregar producto', 'pi pi-plus', 1, '/product/add', false);
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (3, 'Modificar producto', 'pi pi-pencil', 1, '/product/edit', false);
 
 INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (4, 'Seguridad', 'pi pi-shield', null, '/security', true);
 
@@ -324,8 +323,6 @@ INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) 
 INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (18, 'Usuarios', 'pi pi-user', null, '/users', true);
 
 INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (19, 'Categorias', 'pi pi-bars', null, '/categories', true);
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (20, 'Agregar categoria', 'pi pi-plus', 19, '/categories/add', false);
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (21, 'Editar categoria', 'pi pi-pencil', 19, '/categories/edit', false);
 
 INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (22, 'Roles', 'pi pi-id-card', 4, '/security/roles', false);
 INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (23, 'Agregar rol', 'pi pi-plus', 22, '/security/roles/add', false);
@@ -336,7 +333,6 @@ INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) 
 
 INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (1, 1, 1);
 INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (2, 2, 1);
-INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (3, 3, 1);
 INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (4, 4, 1);
 INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (5, 5, 1);
 INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (6, 6, 1);
@@ -353,8 +349,6 @@ INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (16, 16, 1);
 INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (17, 17, 1);
 INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (18, 18, 1);
 INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (19, 19, 1);
-INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (20, 20, 1);
-INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (21, 21, 1);
 INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (22, 22, 1);
 
 -------------------------------------------------------------------------------------------- MANAGER MENU PERMISSIONS
@@ -363,8 +357,6 @@ INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (23, 1, 2);
 INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (24, 17, 2);
 INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (25, 18, 2);
 INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (26, 19, 2);
-INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (27, 20, 2);
-INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (28, 21, 2);
 
 --------------------------------------------------------------------------------------------------------------------------------  ADMIN ---------------------------------------------------------------------
 

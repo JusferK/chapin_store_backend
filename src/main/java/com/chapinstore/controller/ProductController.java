@@ -4,6 +4,7 @@ import com.chapinstore.dto.product.request.ProductCreationDtoRequest;
 import com.chapinstore.dto.product.request.ProductUpdateDto;
 import com.chapinstore.dto.product.response.ProductCreationDtoResponse;
 import com.chapinstore.dto.product.response.ProductRetrieveDtoResponse;
+import com.chapinstore.entity.Product;
 import com.chapinstore.model.Pagination;
 import com.chapinstore.service.ProductService;
 import jakarta.validation.Valid;
@@ -20,7 +21,7 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/get-all")
-    public ResponseEntity<Pagination<ProductRetrieveDtoResponse>> all(
+    public ResponseEntity<Pagination<Product>> all(
             @RequestParam(required = false, defaultValue = "0") Integer page
     ) {
         return ResponseEntity
@@ -39,7 +40,7 @@ public class ProductController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<ProductRetrieveDtoResponse> find(
+    public ResponseEntity<Product> find(
             @RequestParam String argument
     ) {
         return ResponseEntity

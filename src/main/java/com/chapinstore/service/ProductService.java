@@ -41,14 +41,14 @@ public class ProductService {
     @Autowired
     private CategoryService categoryService;
 
-    public Pagination<ProductRetrieveDtoResponse> all(Integer page) {
+    public Pagination<Product> all(Integer page) {
 
         Pageable pageable = PageRequest.of(page, pageSize, Sort.Direction.ASC, property);
         Page<Product> productPage = productRepository.findAll(pageable);
 
-        List<ProductRetrieveDtoResponse> content = mapProduct(productPage.getContent());
+        List<Product> content = productPage.getContent();
 
-        return Pagination.<ProductRetrieveDtoResponse>
+        return Pagination.<Product>
                 builder()
                 .content(content)
                 .page(page)
@@ -66,7 +66,10 @@ public class ProductService {
         Pageable pageable = PageRequest.of(page, pageSize, Sort.Direction.ASC, property);
         Page<Product> productPage = productRepository.findByCategoryId(categoryId, pageable);
 
-        List<ProductRetrieveDtoResponse> content = mapProduct(productPage.getContent());
+        List<ProductRetrieveDtoResponse> content = productPage.getContent()
+                .stream()
+                .map(product -> productMapper.toProductRetrieveDtoResponse(product))
+                .toList();
 
         return Pagination.<ProductRetrieveDtoResponse>
                 builder()
@@ -78,9 +81,8 @@ public class ProductService {
                 .build();
     }
 
-    public ProductRetrieveDtoResponse find(String argument) {
-        Product findProduct = findProduct(argument);
-        return productMapper.toProductRetrieveDtoResponse(findProduct);
+    public Product find(String argument) {
+        return findProduct(argument);
     }
 
     public Product findById(Long id) {
@@ -168,13 +170,6 @@ public class ProductService {
         if (productDto.getCategoryId() != null) product.setCategoryId(productDto.getCategoryId());
 
         productRepository.save(product);
-    }
-
-    private List<ProductRetrieveDtoResponse> mapProduct(List<Product> products) {
-        return products
-                .stream()
-                .map(product -> productMapper.toProductRetrieveDtoResponse(product))
-                .toList();
     }
 
 }

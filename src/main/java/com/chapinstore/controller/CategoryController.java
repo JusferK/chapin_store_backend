@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -22,12 +23,10 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping("/get-all")
-    public ResponseEntity<Pagination<CategoryRetrieveAllDto>> getAllCategories(
-            @RequestParam(required = false, defaultValue = "0") Integer page
-    ) {
+    public ResponseEntity<List<CategoryRetrieveAllDto>> getAllCategories() {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(categoryService.all(page));
+                .body(categoryService.all());
     }
 
     @PostMapping("/new")

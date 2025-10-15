@@ -37,24 +37,12 @@ public class CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
 
-    public Pagination<CategoryRetrieveAllDto> all(Integer page) {
+    public List<CategoryRetrieveAllDto> all() {
 
-        Pageable pageable = PageRequest.of(page, pageSize, Sort.Direction.ASC, property);
-        Page<Category> categoryPage = categoryRepository.findAll(pageable);
-
-        List<CategoryRetrieveAllDto> content = categoryPage.getContent()
+        return categoryRepository.findAll()
                 .stream()
                 .map(categoryMapper::toCategoryRetrieveAllDto)
                 .toList();
-
-        return Pagination.<CategoryRetrieveAllDto>
-                builder()
-                .content(content)
-                .page(page)
-                .totalElements((int) categoryPage.getTotalElements())
-                .size(categoryPage.getSize())
-                .totalPages(categoryPage.getTotalPages())
-                .build();
 
     }
 
