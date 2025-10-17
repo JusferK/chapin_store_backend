@@ -13,6 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/product")
 public class ProductController {
@@ -39,13 +42,13 @@ public class ProductController {
                 .body(productService.allByCategory(page, categoryId));
     }
 
-    @GetMapping("/get")
-    public ResponseEntity<Product> find(
-            @RequestParam String argument
+    @PostMapping("/get")
+    public ResponseEntity<List<Product>> find(
+            @RequestBody Map<String, ?> request
     ) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(productService.find(argument));
+                .body(productService.find(request));
     }
 
     @PostMapping("/new")

@@ -81,7 +81,11 @@ public class ProductService {
                 .build();
     }
 
-    public Product find(String argument) {
+    public List<Product> find(Map<String, ?> request) {
+
+        String argument = request.get("argument").toString();
+        if (argument == null) throw new IllegalArgumentException("Se requiere el propiedad 'argument' para encontrar el producto deseado.");
+
         return findProduct(argument);
     }
 
@@ -128,34 +132,37 @@ public class ProductService {
         return productMapper.toProductRetrieveDtoResponseV2(find);
     }
 
-    private Product findProduct(String id) {
-        Product findById = findById(id);
-        Product findByString = findByString(id);
+    private List<Product> findProduct(String id) {
+        List<Product> findById = findById(id);
+        List<Product> findByString = findByString(id);
 
-        if (findById != null) return findById;
-        else if (findByString != null) return findByString;
+        if (!findById.isEmpty()) return findById;
+        else if (!findByString.isEmpty()) return findByString;
 
         throw new EntityNotFoundException("El producto no fue encontrado.");
     }
 
-    private Product findById(String id) {
+    private List<Product> findById(String id) {
         try {
             Long productId = Long.parseLong(id);
             Optional<Product> findProduct = productRepository.findById(productId);
-            if (findProduct.isPresent()) return findProduct.get();
+            if (findProduct.isPresent()) return List.of(findProduct.get());
         } catch (Exception ignored) {}
-        return null;
+        return List.of();
     }
 
-    private Product findByString(String argument) {
+    private List<Product> findByString(String argument) {
 
         Optional<Product> findByName = productRepository.findByName(argument);
         Optional<Product> findByDescription = productRepository.findByDescription(argument);
 
-        if (findByName.isPresent()) return findByName.get();
-        else if (findByDescription.isPresent()) return findByDescription.get();
+        if (findByName.isPresent()) return List.of(findByName.get());
+        else if (findByDescription.isPresent()) return List.of(findByDescription.get());
 
-        return null;
+        List<Product> findSimilar = productRepository.search(argument);
+        if (!findSimilar.isEmpty()) return findSimilar;
+
+        return List.of();
     }
 
     private void mapAndUpdate(

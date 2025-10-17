@@ -76,7 +76,7 @@ INSERT INTO Module (name, base_path, active) values ('menus', '/menu', true);
 -- PRODUCTOS
 INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (1, 'READ_ALL_PRODUCTS', '/get-all', 'GET', 1, false, true);
 INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (2, 'READ_ALL_PRODUCTS_BY_CATEGORY', '/get-all-by-category', 'GET', 1, true, true);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (3, 'READ_ONE_PRODUCT', '/get', 'GET', 1, true, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (3, 'READ_ONE_PRODUCT', '/get', 'POST', 1, true, true);
 INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (4, 'CREATE_PRODUCT', '/new', 'POST', 1, false, true);
 INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (5, 'PATCH_PRODUCT', '/patch', 'PATCH', 1, false, true);
 INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (6, 'DELETE_PRODUCT', '/delete', 'DELETE', 1, false, true);
