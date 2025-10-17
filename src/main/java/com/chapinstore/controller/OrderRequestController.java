@@ -32,13 +32,13 @@ public class OrderRequestController {
                 .body(orderRequestService.getAll(page));
     }
 
-    @GetMapping("/get")
+    @PostMapping("/get")
     public ResponseEntity<List<OrderRequestRetrieveDto>> get(
-            @RequestParam String argument
+            @RequestBody Map<String, ?> request
     ) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(orderRequestService.find(argument));
+                .body(orderRequestService.find(request));
     }
 
     @PostMapping("/new")
@@ -61,21 +61,11 @@ public class OrderRequestController {
 
     @PatchMapping("/update/status")
     public ResponseEntity<Map<String, String>> updateStatus(
-            @RequestParam Status status,
-            @RequestParam Integer orderRequestId
+            @RequestBody Map<String, ?> request
     ) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(orderRequestService.updateStatus(status, orderRequestId));
-    }
-
-    @DeleteMapping("/delete")
-    public ResponseEntity<Map<String, Boolean>> delete(
-            @RequestParam Integer orderRequestId
-    ) {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(orderRequestService.delete(orderRequestId));
+                .body(orderRequestService.updateStatus(request));
     }
 
 }

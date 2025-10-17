@@ -35,6 +35,13 @@ public class RoleController {
                 .body(roleService.findAll());
     }
 
+    @GetMapping("/get-all-names")
+    public ResponseEntity<List<String>> getAllNames() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(roleService.findAllNames());
+    }
+
     @DeleteMapping("/disable")
     public ResponseEntity<Map<String, Boolean>> disable(
             @RequestParam String role

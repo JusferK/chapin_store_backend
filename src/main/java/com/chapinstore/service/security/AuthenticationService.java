@@ -5,6 +5,7 @@ import com.chapinstore.dto.authentication.response.AuthenticationResponse;
 import com.chapinstore.entity.Administrator;
 import com.chapinstore.entity.Customer;
 import com.chapinstore.entity.security.JwtToken;
+import com.chapinstore.exception.throwable.DisableCredentialsException;
 import com.chapinstore.exception.throwable.LogoutMissingTokenException;
 import com.chapinstore.service.AdministratorService;
 import com.chapinstore.service.CustomerService;
@@ -79,6 +80,7 @@ public class AuthenticationService {
         }
 
         Administrator findAdmin = administratorService.findNullable(username);
+        if (!findAdmin.isIsActive()) throw new DisableCredentialsException("El usuario " + findAdmin.getUsername() + " se encuentra desactivado.");
         jwt = jwtService.generate(findAdmin, generateClaims(findAdmin));
 
         return new AuthenticationResponse<>(jwt, findAdmin);

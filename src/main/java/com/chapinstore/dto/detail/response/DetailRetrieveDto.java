@@ -11,7 +11,6 @@ public class DetailRetrieveDto {
     private Long detailId;
     private Double subtotal;
     private Integer quantity;
-    private Long productId;
     private ProductRetrieveDtoResponseV2 product;
 
 

@@ -4,6 +4,7 @@ import com.chapinstore.entity.Administrator;
 import com.chapinstore.entity.Customer;
 import com.chapinstore.entity.security.JwtToken;
 import com.chapinstore.entity.security.Operation;
+import com.chapinstore.exception.throwable.DisableCredentialsException;
 import com.chapinstore.service.AdministratorService;
 import com.chapinstore.service.CustomerService;
 import com.chapinstore.service.security.JwtService;
@@ -78,8 +79,8 @@ public class AuthenticationFilter extends OncePerRequestFilter {
                     .setAuthentication(authToken);
 
             filterChain.doFilter(request, response);
-        } catch (ExpiredJwtException expiredJwtException) {
-            resolver.resolveException(request, response, null, expiredJwtException);
+        } catch (Exception exception) {
+            resolver.resolveException(request, response, null, exception);
         }
 
     }
@@ -88,8 +89,16 @@ public class AuthenticationFilter extends OncePerRequestFilter {
         return Optional.ofNullable(customerService.findNullable(username))
                 .map(UserDetails.class::cast)
                 .or(
-                        () -> Optional.ofNullable(administratorService.findNullable(username))
-                                .map(UserDetails.class::cast)
+                        () -> {
+
+                            Administrator administrator = administratorService.findNullable(username);
+
+                            if (administrator == null) return Optional.empty();
+                            if (!administrator.isIsActive()) throw new DisableCredentialsException("El usuario " + administrator.getUsername() + " se encuentra desactivado.");
+
+                            return Optional.ofNullable(administratorService.findNullable(username))
+                                    .map(UserDetails.class::cast);
+                        }
                 )
                 .orElseThrow(() -> new EntityNotFoundException("Credenciales inválidas"));
     }

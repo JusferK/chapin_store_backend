@@ -72,7 +72,7 @@ public class CategoryService {
 
         Optional<Category> findCategory = categoryRepository.findById(id);
         if (findCategory.isEmpty()) return Map.of("deleted", false);
-        categoryRepository.deleteById(id);
+        categoryRepository.delete(findCategory.get());
 
         return Map.of("deleted", true);
     }

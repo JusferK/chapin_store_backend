@@ -72,9 +72,13 @@ public class Administrator implements Serializable, UserDetails {
         return true;
     }
 
-    @JsonIgnore
     public boolean isIsActive() {
-        return true;
+        return this.isActive;
+    }
+
+    @JsonIgnore
+    public boolean getEnabled() {
+        return isEnabled();
     }
 
 }

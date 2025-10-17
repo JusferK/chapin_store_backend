@@ -32,7 +32,7 @@ application:
     secret: c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUgxUytTYXZYV3d5SVZOQ2tSMkxTYnlRVUJGUEVCRUcyWnNKQ1hqSS9NNGIgY2hhcGluc3RvcmVAZ21haWwuY29t
   order-request:
     property: status
-    page-size: 20
+    page-size: 11
   product:
     property: price
     page-size: 20
@@ -41,5 +41,5 @@ application:
     page-size: 20
   user:
     property: email
-    page-size: 15
+    page-size: 20
 

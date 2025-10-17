@@ -1,10 +1,8 @@
 package com.chapinstore.service;
 
 import com.chapinstore.dto.administrator.request.AdministratorCreationDto;
-import com.chapinstore.dto.authentication.response.AuthenticationResponse;
 import com.chapinstore.entity.Administrator;
 import com.chapinstore.repository.AdministratorRepository;
-import com.chapinstore.service.security.JwtService;
 import com.chapinstore.service.security.RoleService;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
@@ -25,12 +23,9 @@ public class AdministratorService {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private JwtService jwtService;
-
-    @Autowired
     private RoleService roleService;
 
-    public AuthenticationResponse<Administrator> register(AdministratorCreationDto request) {
+    public Administrator register(AdministratorCreationDto request) {
 
         administratorRepository.findByUsername(request.getUsername())
                 .ifPresent(administrator -> {
@@ -41,12 +36,11 @@ public class AdministratorService {
                 request.getUsername(),
                 passwordEncoder.encode(request.getPassword())
         );
-        administrator.setRole(roleService.CustomerRole(request.getRole()));
-        Administrator adminSaved = administratorRepository.save(administrator);
 
-        String jwt = jwtService.generate(adminSaved, generateClaims(adminSaved));
+        administrator.setRole(roleService.defaultRole(request.getRole()));
+        administrator = administratorRepository.save(administrator);
 
-        return new AuthenticationResponse<>(jwt, adminSaved);
+        return administrator;
     }
 
     public List<Administrator> getAll() {
@@ -64,13 +58,15 @@ public class AdministratorService {
                 .orElse(null);
     }
 
-    public Map<String, Boolean> updatePassword(String username, Map<String, String> request) {
+    public Map<String, Boolean> updatePassword(Map<String, String> request) {
 
         String password = request.get("password");
+        String username = request.get("username");
         if (password == null) throw new IllegalArgumentException("Contraseña requerida.");
+        if (username == null) throw new IllegalArgumentException("Usuario requerido.");
 
         Administrator administrator = find(username);
-        administrator.setPassword(password);
+        administrator.setPassword(passwordEncoder.encode(password));
         administratorRepository.save(administrator);
 
         return Map.of("updated", true);
@@ -81,14 +77,6 @@ public class AdministratorService {
         administrator.setIsActive(false);
         administratorRepository.save(administrator);
         return Map.of("disable", true);
-    }
-
-    private Map<String, Object> generateClaims(Administrator administrator) {
-        return Map.of(
-                "name", administrator.getUsername(),
-                "role", administrator.getRole().getName(),
-                "authorities", administrator.getAuthorities()
-        );
     }
 
 }

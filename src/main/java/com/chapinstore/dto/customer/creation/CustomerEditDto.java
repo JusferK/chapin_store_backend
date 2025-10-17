@@ -11,10 +11,6 @@ import lombok.Data;
 public class CustomerEditDto {
 
     @NotNull(message = "El correo es requerido")
-    @Pattern(
-            regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
-            message = "Formato del correo es incorrecto"
-    )
     private String email;
 
     @Size(min = 5, max = 45, message = "La contraseña tiene que ser de 5 a 45 caracteres")

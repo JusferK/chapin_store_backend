@@ -1,9 +1,6 @@
 package com.chapinstore.exception;
 
-import com.chapinstore.exception.throwable.AddressCreationException;
-import com.chapinstore.exception.throwable.InvalidOrderStatusException;
-import com.chapinstore.exception.throwable.LogoutMissingTokenException;
-import com.chapinstore.exception.throwable.PaymentSecurityCompromisedException;
+import com.chapinstore.exception.throwable.*;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
@@ -187,6 +184,20 @@ public class GlobalExceptionHandler {
 
         return  ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
+                .body(body);
+    }
+
+    @ExceptionHandler(DisableCredentialsException.class)
+    public  ResponseEntity<Map<String, Object>> handleDisableCredentialsException(DisableCredentialsException ex) {
+
+        Map<String, Object> body = Map.of(
+                "status", HttpStatus.UNAUTHORIZED.value(),
+                "error", "Invalid credentials",
+                "message", ex.getLocalizedMessage()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED.value())
                 .body(body);
     }
 

@@ -49,7 +49,7 @@ public class CategoryController {
 
     @DeleteMapping("/delete")
     public ResponseEntity<Map<String, Boolean>> delete(
-            @RequestParam(required = false, defaultValue = "0") Integer id
+            @RequestParam Integer id
     ) {
         return ResponseEntity
                 .status(HttpStatus.OK)

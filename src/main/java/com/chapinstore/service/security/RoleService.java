@@ -17,7 +17,7 @@ public class RoleService {
     @Autowired
     private RoleRepository roleRepository;
 
-    public Role CustomerRole(String role) {
+    public Role defaultRole(String role) {
         return roleRepository.findByName(role)
                 .orElseThrow(() -> new EntityNotFoundException("Role no existe"));
     }
@@ -36,6 +36,13 @@ public class RoleService {
 
     public List<Role> findAll() {
         return roleRepository.findAll();
+    }
+
+    public List<String> findAllNames() {
+        return roleRepository.findAll()
+                .stream()
+                .map(Role::getName)
+                .toList();
     }
 
     public Role find(Long id) {

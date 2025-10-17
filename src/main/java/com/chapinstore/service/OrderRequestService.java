@@ -72,7 +72,10 @@ public class OrderRequestService {
                 .build();
     }
 
-    public List<OrderRequestRetrieveDto> find(String argument) {
+    public List<OrderRequestRetrieveDto> find(Map<String, ?> request) {
+
+        String argument = request.get("argument")
+                .toString();
 
         Date parseDate = parseDate(argument);
 
@@ -132,7 +135,10 @@ public class OrderRequestService {
         orderRequestRepository.save(orderRequest);
     }
 
-    public Map<String, String> updateStatus(Status status, Integer orderRequestId) {
+    public Map<String, String> updateStatus(Map<String, ?> request) {
+
+        Integer orderRequestId = (Integer) request.get("orderRequestId");
+        Status status = Status.valueOf((String) request.get("status"));
 
         OrderRequest findOrder = orderRequestRepository.findById(orderRequestId)
                 .orElseThrow(() -> new EntityNotFoundException("No se encontro ninguna orden"));
@@ -142,18 +148,9 @@ public class OrderRequestService {
         return Map.of("status", status.toString());
     }
 
-    public Map<String, Boolean> delete(Integer orderRequestId) {
-
-        OrderRequest findOrder = orderRequestRepository.findById(orderRequestId)
-                .orElseThrow(() -> new EntityNotFoundException("No se encontro ninguna orden"));
-
-        orderRequestRepository.delete(findOrder);
-        return Map.of("deleted", Boolean.TRUE);
-    }
-
     private Date parseDate(String date) {
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             LocalDate localDate = LocalDate.parse(date, formatter);
             return java.sql.Date.valueOf(localDate);
         } catch (Exception e) {
@@ -176,10 +173,7 @@ public class OrderRequestService {
 
                                 DetailRetrieveDto formattedDetail = detailService.map(detail);
 
-                                if (orderRequest.getOrderDetail().size() > 10) return formattedDetail;
-
                                 ProductRetrieveDtoResponseV2 product = productService.findAndMap(detail.getProductId());
-                                formattedDetail.setProductId(null);
                                 formattedDetail.setProduct(product);
 
                                 return formattedDetail;

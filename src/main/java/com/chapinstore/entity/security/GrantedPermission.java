@@ -1,5 +1,6 @@
 package com.chapinstore.entity.security;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -15,6 +16,7 @@ public class GrantedPermission implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
+    @JsonIgnore
     private Role role;
 
     @ManyToOne(fetch = FetchType.EAGER)

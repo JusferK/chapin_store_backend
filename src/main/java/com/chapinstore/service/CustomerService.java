@@ -62,7 +62,7 @@ public class CustomerService {
         Customer customer = customerMapper.toCustomer(request);
 
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
-        customer.setRole(roleService.CustomerRole("CUSTOMER"));
+        customer.setRole(roleService.defaultRole("CUSTOMER"));
 
         Customer savedCustomer = customerRepository.save(customer);
         if (!request.getAddresses().isEmpty())

@@ -14,6 +14,7 @@ public class CustomerCreationResponseDto {
     private String name;
     private String lastName;
     private Date dateOfBirth;
+    private Date creationDate;
     private List<CustomerAddressCreationDto> addresses;
 
 }
