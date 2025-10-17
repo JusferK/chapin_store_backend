@@ -133,11 +133,12 @@ public class ProductService {
     }
 
     private List<Product> findProduct(String id) {
-        List<Product> findById = findById(id);
-        List<Product> findByString = findByString(id);
 
+        List<Product> findById = findById(id);
         if (!findById.isEmpty()) return findById;
-        else if (!findByString.isEmpty()) return findByString;
+
+        List<Product> findByString = findByString(id);
+        if (!findByString.isEmpty()) return findByString;
 
         throw new EntityNotFoundException("El producto no fue encontrado.");
     }
@@ -154,10 +155,10 @@ public class ProductService {
     private List<Product> findByString(String argument) {
 
         Optional<Product> findByName = productRepository.findByName(argument);
-        Optional<Product> findByDescription = productRepository.findByDescription(argument);
-
         if (findByName.isPresent()) return List.of(findByName.get());
-        else if (findByDescription.isPresent()) return List.of(findByDescription.get());
+
+        Optional<Product> findByDescription = productRepository.findByDescription(argument);
+        if (findByDescription.isPresent()) return List.of(findByDescription.get());
 
         List<Product> findSimilar = productRepository.search(argument);
         if (!findSimilar.isEmpty()) return findSimilar;
