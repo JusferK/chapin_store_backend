@@ -29,7 +29,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Map<String, Boolean>> logout(HttpServletRequest request) {
+    public ResponseEntity<Map<String, Boolean>> logout(@RequestBody Map<String, String> request) {
         return  ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(authenticationService.logout(request));

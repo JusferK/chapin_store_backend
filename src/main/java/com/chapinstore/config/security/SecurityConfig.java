@@ -51,7 +51,10 @@ public class SecurityConfig {
                 )
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .authorizeHttpRequests(request -> request.anyRequest().access(authorizationManager))
+                .authorizeHttpRequests(request -> {
+                    request.requestMatchers("/error").permitAll();
+                    request.anyRequest().access(authorizationManager);
+                })
                 .exceptionHandling(exception -> {
                     exception.authenticationEntryPoint(customAuthenticationEntryPoint);
                     exception.accessDeniedHandler(customAccessDeniedHandler);

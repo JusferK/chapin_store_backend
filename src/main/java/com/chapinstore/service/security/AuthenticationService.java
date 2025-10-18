@@ -6,9 +6,11 @@ import com.chapinstore.entity.Administrator;
 import com.chapinstore.entity.Customer;
 import com.chapinstore.entity.security.JwtToken;
 import com.chapinstore.exception.throwable.DisableCredentialsException;
+import com.chapinstore.exception.throwable.JwtInvalidToken;
 import com.chapinstore.exception.throwable.LogoutMissingTokenException;
 import com.chapinstore.service.AdministratorService;
 import com.chapinstore.service.CustomerService;
+import io.jsonwebtoken.MalformedJwtException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -50,15 +52,26 @@ public class AuthenticationService {
         return findEntity(request.getUsername());
     }
 
-    public Map<String, Boolean> logout(HttpServletRequest request) {
+    public Map<String, Boolean> logout(Map<String, String> body) {
 
-        String token = jwtService.extractJwtFromRequest(request);
+        String token = body.get("token");
         if (token == null) throw new LogoutMissingTokenException("El token es requerido para salir de la sesion.");
 
-        Optional<JwtToken> findToken = jwtTokenService.getToken(token);
-        if (findToken.isEmpty()) jwtTokenService.saveToken(token);
+        try {
+            jwtService.extractUsername(token);
+        } catch (MalformedJwtException exception) {
+            throw new MalformedJwtException("El formato del token es invalido.");
+        } catch (Exception exception) {
+            throw new JwtInvalidToken("Token no valido para guardar.");
+        }
 
-        return Map.of("logout", Boolean.TRUE);
+        Optional<JwtToken> findToken = jwtTokenService.getToken(token);
+        if (findToken.isEmpty()) {
+            jwtTokenService.saveToken(token);
+            return Map.of("logout", Boolean.TRUE);
+        }
+
+        return Map.of("logout", Boolean.FALSE);
     }
 
     public Map<String, Boolean> validate(HttpServletRequest request) {

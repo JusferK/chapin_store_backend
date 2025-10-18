@@ -122,7 +122,7 @@ INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active)
 
 -- AUTHENTICATE
 INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (33, 'LOGIN', '/login', 'POST', 9, true, true);
-INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (34, 'LOGOUT', '/logout', 'POST', 9, false, true);
+INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (34, 'LOGOUT', '/logout', 'POST', 9, true, true);
 INSERT INTO Operation (id, name, path, method, module_id, permit_all, is_active) values (53, 'VALIDATE', '/validate', 'GET', 9, false, true);
 
 -- ROLE
@@ -203,7 +203,6 @@ INSERT INTO granted_permission (role_id, operation_id) values (1, 31);
 INSERT INTO granted_permission (role_id, operation_id) values (1, 32);
 
 -- /AUTENTICACION
-INSERT INTO granted_permission (role_id, operation_id) values (1, 34);
 INSERT INTO granted_permission (role_id, operation_id) values (1, 53);
 
 -- /ROLE
@@ -264,7 +263,7 @@ INSERT INTO granted_permission (role_id, operation_id) values (2, 26);
 INSERT INTO granted_permission (role_id, operation_id) values (2, 27);
 
 -- /AUTENTICACION
-INSERT INTO granted_permission (role_id, operation_id) values (2, 34);
+INSERT INTO granted_permission (role_id, operation_id) values (2, 53);
 
 -- /MENU
 
@@ -301,17 +300,11 @@ INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) 
 INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (4, 'Seguridad', 'pi pi-shield', null, '/security', true);
 
 INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (5, 'Permisos', 'pi pi-shield', 4, '/security/permission', false);
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (6, 'Eliminar', 'pi pi-trash', 5, '/security/permission/delete', false);
 
 INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (7, 'Modulos', 'pi pi-list', 4, '/security/modules', false);
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (8, 'Agregar modulo', 'pi pi-plus', 7, '/security/modules/add', false);
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (9, 'Editar modulo', 'pi pi-pencil', 7, '/security/modules/edit', false);
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (10, 'Deshabilitar modulo', 'pi pi-power-off', 7, '/security/modules/disable', false);
 
 INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (11, 'Operaciones', 'pi pi-warehouse', 4, '/security/operations', false);
 INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (12, 'Agregar operacion', 'pi pi-plus', 11, '/security/operations/add', false);
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (13, 'Editar operacion', 'pi pi-pencil', 11, '/security/operations/edit', false);
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (14, 'Deshabilitar operacion', 'pi pi-power-off', 11, '/security/operations/disable', false);
 
 INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (15, 'Administradores', 'pi pi-users', null, '/administrator', true);
 
@@ -322,7 +315,6 @@ INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) 
 INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (19, 'Categorias', 'pi pi-bars', null, '/categories', true);
 
 INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (22, 'Roles', 'pi pi-id-card', 4, '/security/roles', false);
-INSERT INTO menu_operation (id, label, icon, father_id, router_link, is_father) values (23, 'Agregar rol', 'pi pi-plus', 22, '/security/roles/add', false);
 
 --------------------------------------------------------------------------------------------------------------------------------  Role : Menu ---------------------------------------------------------------------
 
@@ -332,15 +324,12 @@ INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (1, 1, 1);
 INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (2, 2, 1);
 INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (4, 4, 1);
 INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (5, 5, 1);
-INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (6, 6, 1);
+
 INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (7, 7, 1);
-INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (8, 8, 1);
-INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (9, 9, 1);
-INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (10, 10, 1);
+
 INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (11, 11, 1);
 INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (12, 12, 1);
-INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (13, 13, 1);
-INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (14, 14, 1);
+
 INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (15, 15, 1);
 INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (17, 17, 1);
 INSERT INTO role_menu (id, menu_operation_id, role_id) VALUES (18, 18, 1);

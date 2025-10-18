@@ -2,6 +2,7 @@ package com.chapinstore.exception;
 
 import com.chapinstore.exception.throwable.*;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -198,6 +199,34 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED.value())
+                .body(body);
+    }
+
+    @ExceptionHandler(MalformedJwtException.class)
+    public ResponseEntity<Map<String, Object>> handleMalformedJwtException(MalformedJwtException ex) {
+
+        Map<String, Object> body = Map.of(
+                "status", HttpStatus.FORBIDDEN,
+                "error", "Invalid token format",
+                "message", ex.getLocalizedMessage()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.FORBIDDEN.value())
+                .body(body);
+    }
+
+    @ExceptionHandler(JwtInvalidToken.class)
+    public ResponseEntity<Map<String, Object>> handleJwtTokenInsecureException(JwtInvalidToken ex) {
+
+        Map<String, Object> body = Map.of(
+                "status", HttpStatus.CONFLICT.value(),
+                "error", "JWT token expired",
+                "message", ex.getLocalizedMessage()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT.value())
                 .body(body);
     }
 
